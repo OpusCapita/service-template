@@ -1,0 +1,42 @@
+machine:
+  pre:
+   - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+   - pip install --force-reinstall -U docker-compose==1.10.0
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - docker info
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+    #- echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL" | npm login
+    - >
+      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
+        echo "Building base image..." ; docker build --rm=false -t ocbesbn/{{your-service-name}}-base:latest -f Dockerfile.base .
+      fi
+    - docker build --rm=false -t ocbesbn/{{your-service-name}}:latest .
+
+test:
+  override:
+    - >
+      sudo service mysql stop ;
+      export HOST_IP=$(ifconfig | grep "docker0" -A1 | grep -o -P "inet addr:.*? " | grep -o -P "\d+\.\d+\.\d+\.\d+") ;
+      docker-compose run main npm run test
+  post:
+    - sudo mkdir $CIRCLE_TEST_REPORTS/junit
+    - sudo cp test-results.xml $CIRCLE_TEST_REPORTS/junit
+
+deployment:
+ hub:
+   branch: master
+   commands:
+     - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+     - >
+       if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
+         echo "Deploying base image..." ; docker push ocbesbn/{{your-service-name}}-base
+       fi
+     -  docker push ocbesbn/{{your-service-name}}:latest
+  #npm:
+    #branch: master
+    #commands:
+      #- npm publish
