@@ -31,7 +31,7 @@ Open the **package.json** file in your editor and change the following propertie
 - bugs
 - homepage
 
-Open the files **Dockerfile.base**, **Dockerfile**, **docker-compose.yml** and **circleci.yml** and replace all the values surrounded by double curly braces (e.g. {{maintainer}}) with your own.
+Open the files **Dockerfile.base**, **Dockerfile**, **docker-compose.yml**, **circleci.yml** and **package.js** and replace all the values surrounded by double curly braces (e.g. {{maintainer}}) with your own.
 
 Now open the **.env** file edit the provided values as required.
 

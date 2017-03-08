@@ -9,7 +9,7 @@ services:
     volumes:
      - .:/home/node/{{your-service-name}}
     labels:
-      SERVICE_NAME: 'main'
+      SERVICE_NAME: '{{your-service-name}}'
     extra_hosts:
      - 'consul:${HOST_IP}'
     environment:

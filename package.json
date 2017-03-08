@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "ocbesbn-config": ">=1.0.1",
-        "ocbesbn-db-init": ">=0.1.0",
+        "ocbesbn-db-init": ">=0.1.7",
         "ocbesbn-web-init": ">=0.1.4",
         "node-uuid": "^1.4.7",
         "bluebird": "^3.0.5",
@@ -38,7 +38,7 @@
         "dev": "npm run setupConsul ; ${NODE_PATH}/.bin/nodemon --watch src/server src/server/index.js",
         "test": "npm run clean ; npm run setupConsul ; ${NODE_PATH}/.bin/nyc ${NODE_PATH}/.bin/mocha --recursive -R mocha-junit-reporter",
         "clean": "${NODE_PATH}/.bin/rimraf .nyc_output coverage test-results.xml",
-        "setupConsul": "curl -X PUT -d 'bnp' http://${HOST_IP}:8500/v1/kv/MYSQL_DATABASE ; curl -X PUT -d 'root' http://${HOST_IP}:8500/v1/kv/MYSQL_USER ; curl -X PUT -d 'notSecurePa55w0rd' http://${HOST_IP}:8500/v1/kv/MYSQL_PASSWORD",
+        "setupConsul": "curl -X PUT -d 'bnp' http://${HOST_IP}:8500/v1/kv/{{your-service-name}}/MYSQL_DATABASE ; curl -X PUT -d 'root' http://${HOST_IP}:8500/v1/kv/{{your-service-name}}/MYSQL_USER ; curl -X PUT -d 'notSecurePa55w0rd' http://${HOST_IP}:8500/v1/kv/{{your-service-name}}/MYSQL_PASSWORD",
         "docs": "${NODE_PATH}/.bin/jsdoc2md src/server/index.js > wiki/Home.md"
     }
 }
