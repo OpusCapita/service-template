@@ -11,6 +11,8 @@ Have fun!
 Clone the repository:
 
 ```
+git clone https://github.com/OpusCapitaBusinessNetwork/service-template.git
+- or
 git clone git@github.com:OpusCapitaBusinessNetwork/service-template.git
 ```
 
@@ -71,7 +73,7 @@ If all the above test commands succeeded, add your code to GitHub. After that, y
 ```
 git add .
 git commit -m "Initial commit."
-git remote add origin https://github.com/OpusCapitaBusinessNetwork/{my-service-name}
+git remote add origin https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}
 git push -u origin master
 ```
 ---
@@ -236,13 +238,13 @@ Before you can create the actual output files, please follow this instructions:
 
 - Go to the service repository page on GitHub and create the first wiki page.
 
-- Go to the service code on your local host and clone git@github.com:OpusCapitaBusinessNetwork/{my-service-name}.wiki.git into the directory. (or via http like this: git clone http://github.com/OpusCapitaBusinessNetwork/{my-service-name}.wiki.git )
+- Go to the service code on your local host and clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}.wiki.git or git@github.com:OpusCapitaBusinessNetwork/{{your-service-name}.wiki.git into the directory.
 
-- Rename the directory {my-service-name}.wiki to wiki
+- Rename the directory {{your-service-name}.wiki to wiki
 
 Now run the command:
 
 ```
-docker-compose run {my-service-name} npm run docs
+docker-compose run {{your-service-name} npm run docs
 ```
 This should create the file wiki/Home.md which is the start page of the wiki. If required, you may create more .md files inside the wiki directory. After committing and pushing the wiki directory, all changes should appear in the GitHub wiki.
