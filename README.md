@@ -238,15 +238,15 @@ Before you can create the actual output files, please follow this instructions:
 
 - Go to the service repository page on GitHub and create the first wiki page.
 
-- Go to the service code on your local host and clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}.wiki.git or git@github.com:OpusCapitaBusinessNetwork/{{your-service-name}.wiki.git into the directory.
+- Go to the service code on your local host and clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git or git@github.com:OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git into the directory.
 
-- Rename the directory {{your-service-name}.wiki to wiki
+- Rename the directory {{your-service-name}}.wiki to wiki
 
 Now you have to make sure, that the node module **jsdoc-to-markdown** is installed. If you are running the documentation creation inside a docker container, which is the recommended way, you might have to [build your base image first](#docker). If you are strictly using this service template as provided, everything should already be in place.
 
 After everything is set up correctly, run the following command:
 
 ```
-docker-compose run {{your-service-name} npm run docs
+docker-compose run {{your-service-name}} npm run docs
 ```
 This should create the file wiki/Home.md which is the start page of the wiki. If required, you may create more .md files inside the wiki directory. After committing and pushing the wiki directory, all changes should appear in the GitHub wiki.
