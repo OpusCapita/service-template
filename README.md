@@ -243,6 +243,6 @@ Before you can create the actual output files, please follow this instructions:
 Now run the command:
 
 ```
-docker-compose run main npm run docs
+docker-compose run {my-service-name} npm run docs
 ```
 This should create the file wiki/Home.md which is the start page of the wiki. If required, you may create more .md files inside the wiki directory. After committing and pushing the wiki directory, all changes should appear in the GitHub wiki.
