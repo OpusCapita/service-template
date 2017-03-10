@@ -236,7 +236,7 @@ Before you can create the actual output files, please follow this instructions:
 
 - Go to the service repository page on GitHub and create the first wiki page.
 
-- Go to the service code on your local host and clone git@github.com:OpusCapitaBusinessNetwork/{my-service-name}.wiki.git into the directory.
+- Go to the service code on your local host and clone git@github.com:OpusCapitaBusinessNetwork/{my-service-name}.wiki.git into the directory. (or via http like this: git clone http://github.com/OpusCapitaBusinessNetwork/{my-service-name}.wiki.git )
 
 - Rename the directory {my-service-name}.wiki to wiki
 
