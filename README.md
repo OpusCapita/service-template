@@ -242,7 +242,9 @@ Before you can create the actual output files, please follow this instructions:
 
 - Rename the directory {{your-service-name}.wiki to wiki
 
-Now run the command:
+Now you have to make sure, that the node module **jsdoc-to-markdown** is installed. If you are running the documentation creation inside a docker container, which is the recommended way, you might have to [build your base image first](#docker). If you are strictly using this service template as provided, everything should already be in place.
+
+After everything is set up correctly, run the following command:
 
 ```
 docker-compose run {{your-service-name} npm run docs
