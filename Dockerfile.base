@@ -1,4 +1,4 @@
-FROM gr4per/node-react-base
+FROM ocbesbn/node-react-base
 MAINTAINER {{maintainer}}
 
 # Set the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD instructions that follow.
