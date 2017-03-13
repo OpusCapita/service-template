@@ -7,9 +7,9 @@ WORKDIR /var/tmp/base
 COPY package.json .
 
 # Make sure node can load modules from /var/tmp/base/node_modules
-# Setting NODE_ENV is necessary for "npm install" below.
+# Setting NODE_ENV is necessary for "yarn" below.
 ENV NODE_ENV=development NODE_PATH=/var/tmp/base/node_modules PATH=${PATH}:${NODE_PATH}/.bin
-RUN npm set progress=false && npm install ; npm cache clean
+RUN yarn ; yarn cache clean
 
 WORKDIR /home/node/{{your-service-name}}
 
@@ -26,4 +26,4 @@ USER node
 # The port is fed both to node express server and Consul => DRY principle is observed with ENV VAR.
 # NOTE: a port can be any, not necessarily different from exposed ports of other containers.
 EXPOSE ${PORT}
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

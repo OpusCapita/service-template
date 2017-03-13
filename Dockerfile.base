@@ -7,10 +7,10 @@ WORKDIR /var/tmp/base
 
 COPY package.json .
 
-# Setting NODE_ENV is necessary for "npm install" below. It contains a workaround
-# for a npm error saying: EXDEV: cross-device link not permitted
+# Setting NODE_ENV is necessary for "yarn" below. It contains a workaround
+# for a yarn error saying: EXDEV: cross-device link not permitted
 ENV NODE_ENV=development
 
-RUN apk add --no-cache rsync curl ; npm set progress=false && npm install && npm cache clean
+RUN apk add --no-cache rsync curl ; yarn && yarn cache clean
 
 # NOTE: "node" user and corresponding "/home/node" dir are created by "node:6-alpine" image.
