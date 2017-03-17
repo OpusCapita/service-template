@@ -131,7 +131,7 @@ The most important structural file system elements are:
 - [config](#config-directory)
 - [rest-doc](#service-api-documentation)
 - [src](#src-directory)
-    - [](#src-directory)
+    - [client](#src-directory)
     - [server](#src-directory)
         - [db](#src-directory)
             - [migrations](#src-directory)
