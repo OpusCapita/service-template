@@ -13,10 +13,11 @@ services:
     extra_hosts:
      - 'consul:${HOST_IP}'
     environment:
-     PORT: ${PORT}
-     HOST_IP: ${HOST_IP}
+      PORT: ${PORT}
+      HOST_IP: ${HOST_IP}
     ports:
      - '${PORT}:${PORT}'
+    command: "npm run dev"
 
   mysql:
     image: "mysql:5.6"

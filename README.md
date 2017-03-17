@@ -62,6 +62,8 @@ If everything worked to your satisfaction, execute the following command to run 
 docker-compose up
 ```
 
+> Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time. If your service did not start press Ctrl+C and run the **docker-compose up** command again.
+
 Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show you a "Hello world!".
 
 ---
