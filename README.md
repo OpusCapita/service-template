@@ -41,7 +41,7 @@ Now open the **.env** file edit the provided values as required.
 
 ### Docker
 
-This template uses two docker files that will both build images for you. The **Dockerfile.base** creates a base image with all the basic node modules installed. This helps building the default image much faster as it will happen every time you'll push the repository to GitHub. The base image will be configured to be built every night automatically on CircleCI and pushed to Docker Hub.
+This template uses two docker files that will both build images for you. The **Dockerfile.base** creates a base image with all the basic node modules installed. This helps building the default image much faster as it will happen every time you'll push the repository to GitHub. The base image will be configured to be built every night automatically on [CircleCI](https://circleci.com) and pushed to Docker Hub.
 
 As you need the base image before building the default image for your service, you may have to create your base image manually. Just run:
 
@@ -85,7 +85,7 @@ After that, you can configure the build server for automated building and testin
 
 ### Build server (CircleCI)
 
-To configure a project to be built automatically on CircleCI after pushing it to GitHub, please follow these steps:
+To configure a project to be built automatically on [CircleCI](https://circleci.com) after pushing it to GitHub, please follow these steps:
 
 - Login to CircleCI using your web browser.
 - Go to https://circleci.com/add-projects.
