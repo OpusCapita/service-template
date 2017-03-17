@@ -12,7 +12,7 @@ Clone the repository:
 
 ```
 git clone https://github.com/OpusCapitaBusinessNetwork/service-template.git
-- or
+- or -
 git clone git@github.com:OpusCapitaBusinessNetwork/service-template.git
 ```
 
@@ -230,23 +230,70 @@ to execute all tests inside the **client** and **server** subdirectories. Take a
 ---
 
 ### How to create documentation
-The documentation process provided with this service template is tailored to meet the requirements of the GitHub wiki of a repository. This means, all doc comments get converted into Markdown files. Currently documentation creation is configured to only document the file **./src/server/index.js**.
+Depending on the purpose of your module, there are four different kinds of documentation types available:
 
-To document a JavaScript API just follow the rules of [JSDoc](http://usejsdoc.org).
+* Service API documentation (endpoints)
+* Domain documentation (database models)
+* Code API documentation
+* README documentation
 
-Before you can create the actual output files, please follow this instructions:
+All documentation processes provided with this service template are tailored to meet the requirements of GitHub.
 
-- Go to the service repository page on GitHub and create the first wiki page.
+#### Preparing documentation
+
+Before you can create actual output, please follow this instructions:
+
+- Go to your service repository page on GitHub and create the first wiki page.
 
 - Go to the service code on your local host and clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git or git@github.com:OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git into the directory.
 
-- Rename the directory {{your-service-name}}.wiki to wiki
+- Rename the directory from {{your-service-name}}.wiki to wiki.
 
-Now you have to make sure, that the node module **jsdoc-to-markdown** is installed. If you are running the documentation creation inside a docker container, which is the recommended way, you might have to [build your base image first](#docker). If you are strictly using this service template as provided, everything should already be in place.
+All the scripts already provided by this template should now be able to write their output to the wiki directory. To send all contents to GitHub, just commit and push the wiki directory.
 
-After everything is set up correctly, run the following command:
+#### Service API documentation
+The purpose of the service API documentation is helping others on how to communicate with your service. It has to provide all public endpoints and the data structures used for in- and output including HTTP headers, URL- and query parameters.
+
+The service API documentation is to be written using the [RAML modeling language](http://raml.org). The finished RAML definition will then get transformed into a Markdown documentation using the [raml-to-markdown](http://npmjs.com/package/raml-to-markdown) tool. If you are using Atom as your editor, you should have a closer look at the [API Workbench](http://apiworkbench.com) extension.
+
+This service template already contains an example RAML project structure inside the **rest-doc** directory.
+
+To finally generate the documentation run:
 
 ```
-docker-compose run {{your-service-name}} npm run docs
+docker-compose run main npm run rest-doc
 ```
-This should create the file wiki/Home.md which is the start page of the wiki. If required, you may create more .md files inside the wiki directory. After committing and pushing the wiki directory, all changes should appear in the GitHub wiki.
+
+> Search for output inside the **wiki/rest-doc** directory.
+
+
+#### Domain documentation
+The domain documentation is used to document the database entities used by a service. By using the [sequelize-to-markdown](https://www.npmjs.com/package/sequelize-to-markdown) tool, you can easily generate a Markdown documentation out of your sequelize models.
+
+Before starting to document your code, please read the [Requirements](https://www.npmjs.com/package/sequelize-to-markdown#requirements) section of sequelize-to-markdown carefully.
+
+If your code is finally ready for Markdown rendering, run the following command:
+
+```
+docker-compose run main npm run domain-doc
+```
+
+> Search for output inside the **wiki/domain-doc** directory.
+
+#### Code API documentation
+As it is always a good idea to document your source code in a lightweight way, creating a parsed documentation output is only needed if you use this service template for creating shared modules that provide public APIs for others.
+
+To document your JavaScript API please follow the rules of [JSDoc](http://usejsdoc.org).
+
+If your code is finally ready for Markdown rendering, run the following command:
+
+```
+docker-compose run main npm run api-doc
+```
+
+> Search for output inside the **wiki/api-doc** directory.
+
+#### README
+The README.md file in the main directory of your service should always contain a hand written Markdown documentation with facts important for users of your service.
+
+If you are using this service template for creating shared modules, it is always a good idea to place a simple tutorial inside the README file as this is the first page on GitHub and npmjs.
