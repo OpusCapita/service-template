@@ -70,7 +70,7 @@ Now remember the port you put into the .env file, go to your web browser an open
 
 ### Adding to GitHub
 
-If all the above test commands succeeded, add your code to GitHub. After that, you can configure the build server for automated building and testing.
+If all the above test commands succeeded, go to [GitHub](https://github.com) and create a new repository for your service. Now add all your files and push them to GitHub.
 
 ```
 git add .
@@ -78,6 +78,9 @@ git commit -m "Initial commit."
 git remote add origin https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}
 git push -u origin master
 ```
+
+After that, you can configure the build server for automated building and testing.
+
 ---
 
 ### Build server (CircleCI)
@@ -126,8 +129,9 @@ In addition, this template module is already prepared for documenting the JavaSc
 The most important structural file system elements are:
 
 - [config](#config-directory)
+- [rest-doc](#service-api-documentation)
 - [src](#src-directory)
-    - [client](#src-directory)
+    - [](#src-directory)
     - [server](#src-directory)
         - [db](#src-directory)
             - [migrations](#src-directory)
