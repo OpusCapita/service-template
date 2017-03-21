@@ -2,6 +2,7 @@ machine:
   pre:
    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
    - pip install --force-reinstall -U docker-compose==1.10.0
+   - git clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git && mv {{your-service-name}}.wiki wiki
   services:
     - docker
 
@@ -22,6 +23,7 @@ test:
       sudo service mysql stop ;
       export HOST_IP=$(ifconfig | grep "docker0" -A1 | grep -o -P "inet addr:.*? " | grep -o -P "\d+\.\d+\.\d+\.\d+") ;
       docker-compose run main npm run test
+    - docker-compose run main npm run doc
   post:
     - sudo mkdir $CIRCLE_TEST_REPORTS/junit
     - sudo cp test-results.xml $CIRCLE_TEST_REPORTS/junit
@@ -36,6 +38,7 @@ deployment:
          echo "Deploying base image..." ; docker push ocbesbn/{{your-service-name}}-base
        fi
      -  docker push ocbesbn/{{your-service-name}}:latest
+     - cd wiki ; git add --all ; git commit -m 'Updated documentation.' ; git push ; (exit 0)
   #npm:
     #branch: master
     #commands:

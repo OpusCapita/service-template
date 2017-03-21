@@ -105,6 +105,18 @@ This settings are used to build docker images from your repository and push them
 
 Now your service gets built automatically every time you push your repository to GitHub.
 
+##### GitHub
+
+If you are using documentation generation like it is intended by this service-template, you will have to add a private SSH key to CircleCI in order to push to GitHub. How documenting works is described in the [How to create documentation](#how-to-create-documentation) section.
+
+> If you do not already own a GitHub SSH key or you do not want to use yours, just create new key to be used by CircleCI:
+> * [Generating a new SSH key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+> * [Adding a new SSH key to your GitHub account](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)
+
+If you have a public-private key pair available, go to the settings section of your build project at CircleCI and find the **SSH Permissions** tab on the left. On the right click **Add SSH key**. Add you private key there and provide *github.com* as hostname.
+
+Now pushing to GitHub should work as expected.
+
 ##### NPM
 
 If your project consists of a module which should be published to NPM, go to your **circleci.yml** file and uncomment all sections prefixed with **NPM_**. Additionally you will have to add the following environment variables to CircleCI:
