@@ -2,7 +2,7 @@ machine:
   pre:
    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
    - pip install --force-reinstall -U docker-compose==1.10.0
-   - git clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git && mv {{your-service-name}}.wiki wiki
+   - cd {{your-service-name}} ; rm -Rf wiki ; git clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git && mv {{your-service-name}}.wiki wiki
   services:
     - docker
 
@@ -38,7 +38,7 @@ deployment:
          echo "Deploying base image..." ; docker push ocbesbn/{{your-service-name}}-base
        fi
      -  docker push ocbesbn/{{your-service-name}}:latest
-     - cd wiki ; git add --all ; git commit -m 'Updated documentation.' ; git push ; (exit 0)
+     - cd wiki ; git add --all . ; git commit -am 'Updated documentation.' ; git push ; (exit 0)
   #npm:
     #branch: master
     #commands:
