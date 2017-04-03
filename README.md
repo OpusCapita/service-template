@@ -136,6 +136,15 @@ The database module allows abstracted access to an underlying database. Addition
 
 In addition, this template module is already prepared for documenting the JavaScript API of a service. The documentation process is tailored to fit into the GitHub wiki of a service's repository. For more information take a look at [How to create documentation](#how-to-create-documentation).
 
+##### Consul server
+This service template will set up the following consul keys for you using an NPM script.
+
+* **{{your-service-name}}/db-init/database**
+* **{{your-service-name}}/db-init/user**
+* **{{your-service-name}}/db-init/password**
+* **{{your-service-name}}/db-init/populate-test-data**
+
+The endpoint **mysql** will be automatically available due to the composition of the **docker-compose.yml** file.
 
 ### Service structure
 The most important structural file system elements are:
@@ -149,7 +158,6 @@ The most important structural file system elements are:
             - [migrations](#src-directory)
             - [models](#src-directory)
         - [routes](#src-directory)
-        - static
 - [test](#test-directory)
     - [client](#test-directory)
     - [server](#test-directory)
