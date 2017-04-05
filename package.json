@@ -16,11 +16,12 @@
     "exclude": []
   },
   "dependencies": {
-    "ocbesbn-config": "^2.2.0",
-    "ocbesbn-db-init": "^1.1.0",
-    "ocbesbn-web-init": "^1.0.0",
     "bluebird": "^3.0.5",
     "epilogue": "^0.7.0",
+    "ocbesbn-config": "^2.2.0",
+    "ocbesbn-db-init": "^1.1.0",
+    "ocbesbn-logger": "^1.0.0",
+    "ocbesbn-web-init": "^1.0.0",
     "sequelize": "^3.24.7"
   },
   "devDependencies": {
@@ -42,6 +43,6 @@
     "rest-doc": "mkdir -p wiki/rest-doc ; ${NODE_PATH}/.bin/raml2md -o file-per-resource -p wiki/rest-doc --output-ext=.endpoint.md rest-doc/main.raml",
     "domain-doc": "mkdir -p wiki/domain-doc ; ${NODE_PATH}/.bin/sq2md -o file-per-src -p wiki/domain-doc --init=init --field-bl=createdAt,updatedAt --output-ext=.model.md src/server/db/models",
     "api-doc": "mkdir -p wiki/api-doc ; ${NODE_PATH}/.bin/jsdoc2md -f $(find src/server) > wiki/api-doc/Home.md",
-    "doc" : "npm run rest-doc ; npm run domain-doc ; npm run api-doc"
+    "doc": "npm run rest-doc ; npm run domain-doc ; npm run api-doc"
   }
 }

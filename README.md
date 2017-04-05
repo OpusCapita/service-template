@@ -4,6 +4,23 @@ This repository provides a general service template for creating custom services
 To customize this template to create your own service, just follow the instructions in this document.
 Have fun!
 
+#### Index
+
+- [Get it!](#get-it)
+- [Docker](#docker)
+- [Adding to GitHub](#adding-to-github)
+- [Build server (CircleCI)](#build-server-circleci)
+- [Introduction to code](#introduction-to-code)
+- [Service structure](#service-structure)
+- [How to create migrations](#how-to-create-migrations)
+- [How to create models](#how-to-create-models)
+- [How to create routes](#how-to-create-routes)
+- [How to do logging](#how-to-do-logging)
+- [How to write tests](#how-to-write-tests)
+- [How to create documentation](#how-to-create-documentation)
+- [How to get consul configs](#how-to-get-consul-configs)
+- [How to do inter-service requests](#how-to-do-interservice-requests)
+
 ---
 
 ### Get it!
@@ -146,6 +163,8 @@ This service template will set up the following consul keys for you using an NPM
 
 The endpoint **mysql** will be automatically available due to the composition of the **docker-compose.yml** file.
 
+---
+
 ### Service structure
 The most important structural file system elements are:
 
@@ -244,6 +263,19 @@ For more details take a look at the example file inside the **./src/server/route
 
 ---
 
+### How to do logging
+
+Logging in services should be done using the [ocbesbn-logger](https://github.com/OpusCapita/logger) module. It provides context extended logging in a common way which is flexible and consistent at the same time. For further information about the API of this module visit it's [wiki](https://github.com/OpusCapita/logger).
+
+```JS
+const Logger = require('ocbesbn-logger');
+
+var logger = new Logger({});
+logger.info('Hello, %s', 'world!');
+```
+
+---
+
 ### How to write tests
 Tests are actually executed using nyc and mocha so files inside the **test** directory have to follow the rules of mocha testing. All files have to be suffixed with **.spec.js** in order to get executed.
 
@@ -323,3 +355,37 @@ docker-compose run main npm run api-doc
 The README.md file in the main directory of your service should always contain a hand written Markdown documentation with facts important for users of your service.
 
 If you are using this service template for creating shared modules, it is always a good idea to place a simple tutorial inside the README file as this is the first page on GitHub and npmjs.
+
+---
+
+### How to get consul configs
+
+In order do use consul in a common, unified way across all services, every service should use the [ocbesbn-config](https://github.com/OpusCapitaBusinessNetwork/config) in order to easily get configuration and endpoint data from the central service registry.
+
+```JS
+const config = require('ocbesbn-config');
+
+// You might want to pass a configuration object to the init method. A list of parameters and their default values
+// can be found at the .DefaultConfig module property.
+config.init({}).then(console.log).catch(console.log);
+```
+
+For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/config/wiki) page.
+
+---
+
+### How to do inter-service requests
+
+Inter-service requests should be done using the [ocbesbn-service-client](https://github.com/OpusCapitaBusinessNetwork/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
+
+```JS
+const ServiceClient = require('ocbesbn-service-client');
+
+var client = new ServiceClient({ consul : { host : '{{your-consul-host}}' } });
+
+// main => name of service endpoint in Consul.
+// / => path to access on the web server.
+client.get('main', '/').then(console.log);
+```
+
+For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/service-client/wiki) page.
