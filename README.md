@@ -19,7 +19,7 @@ Have fun!
 - [How to write tests](#how-to-write-tests)
 - [How to create documentation](#how-to-create-documentation)
 - [How to get consul configs](#how-to-get-consul-configs)
-- [How to do inter-service requests](#how-to-do-interservice-requests)
+- [How to do inter-service requests](#how-to-do-inter-service-requests)
 
 ---
 
