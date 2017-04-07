@@ -25,9 +25,9 @@ db.init({
 })
 .then((db) => server.init({
     server: {
-        mode: server.Server.Mode.Dev
+        mode: server.Server.Mode.Dev,
         events : {
-            onStart : () => logger.info('Server ready. Allons-y!');
+            onStart : () => logger.info('Server ready. Allons-y!')
         }
     },
     routes: {
