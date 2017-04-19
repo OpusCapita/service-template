@@ -1,6 +1,6 @@
 {
   "name": "ocbesbn-service-template",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides a sekeleton template for OpusCapita Business Network services.",
   "author": "Christian Drengenberg <Christian.Drengenberg@opuscapita.com>",
   "license": "Apache-2.0",
@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "bluebird": "^3.0.5",
-    "epilogue": "^0.7.0",
     "ocbesbn-config": "^2.2.0",
     "ocbesbn-db-init": "^1.1.0",
     "ocbesbn-logger": "^1.0.0",
