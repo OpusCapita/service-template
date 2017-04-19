@@ -3,29 +3,31 @@ services:
   main:
     build: .
     depends_on:
-     - mysql
-     - consul
-     - registrator
+      - mysql
+      - consul
+      - registrator
     volumes:
-     - .:/home/node/{{your-service-name}}
+      - .:/home/node/{{your-service-name}}
     labels:
       SERVICE_NAME: '{{your-service-name}}'
     extra_hosts:
-     - 'consul:${HOST_IP}'
+      - 'consul:${HOST_IP}'
     environment:
       PORT: ${PORT}
       HOST_IP: ${HOST_IP}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-     - '${PORT}:${PORT}'
-    command: "npm run dev"
+      - '${PORT}:${PORT}'
+    command: 'npm run dev'
 
   mysql:
-    image: "mysql:5.6"
+    image: 'mysql:5.6'
     ports:
-      - "3306:3306"
+      - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: "notSecurePa55w0rd"
-      MYSQL_DATABASE: "bnp"
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     depends_on:
       - registrator
 
@@ -33,9 +35,9 @@ services:
     image: gliderlabs/registrator:latest
     network_mode: host
     depends_on:
-     - consul
+      - consul
     volumes:
-     - /var/run/docker.sock:/tmp/docker.sock
+      - /var/run/docker.sock:/tmp/docker.sock
     command: ['consul://${HOST_IP}:8500']
 
   consul:
