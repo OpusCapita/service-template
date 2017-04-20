@@ -385,7 +385,7 @@ var client = new ServiceClient({ consul : { host : '{{your-consul-host}}' } });
 
 // main => name of service endpoint in Consul.
 // / => path to access on the web server.
-client.get('main', '/').then(console.log);
+client.get('main', '/').spread(console.log);
 ```
 
 For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/service-client/wiki) page.
