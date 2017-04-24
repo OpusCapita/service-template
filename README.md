@@ -228,6 +228,8 @@ module.exports.down = function(db, config)
 }
 ```
 
+> Please note, that all existing migrations should always be left at their release state. Therefor do not change older migration or test data files to fit newer structures. In addition, please mind that defined sequelize JavaScript models do not get versioned like migrations do. These models always represent the latest state of your code. As a result, older migrations might not work anymore if these migrations are using JavaScript model objects to insert data because the models might have changed over time. In order to insert data, please consider using the *queryInterface* of sequelize.
+
 For more details take a look at the example files inside the **./src/server/db/migrations** directory of this service template.
 
 ---
