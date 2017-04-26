@@ -76,7 +76,7 @@ docker push ocbesbn/{{your-service-name}}-base
 If everything worked to your satisfaction, execute the following command to run your new service.
 
 ```
-docker-compose up
+docker-compose run --service-ports main npm run dev
 ```
 
 > Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time. If your service did not start press Ctrl+C and run the **docker-compose up** command again.
