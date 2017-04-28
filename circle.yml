@@ -36,7 +36,7 @@ deployment:
        if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
          echo "Deploying base image..." ; docker tag opuscapita/{{your-service-name}}-base:latest opuscapita/{{your-service-name}}-base:dev ; docker push opuscapita/{{your-service-name}}-base:dev
        fi
-     - docker push opuscapita/{{your-service-name}}:latest opuscapita/{{your-service-name}}:dev && docker push opuscapita/{{your-service-name}}:dev
+     - docker push opuscapita/{{your-service-name}}:latest && docker push opuscapita/{{your-service-name}}:dev
      - curl https://raw.githubusercontent.com/gr4per/azureswarm/master/deploy_service.sh > deploy_service.sh
      - chmod +x deploy_service.sh
      - ./deploy_service.sh dm 52.233.155.169 opuscapita/{{your-service-name}} dev
