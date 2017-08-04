@@ -1,4 +1,4 @@
-FROM opuscapita/{{your-service-name}}-base
+FROM opuscapita/{{your-service-name}}-base:dev
 MAINTAINER {{maintainer}}
 
 # NOTE: "node" user and corresponding "/home/node" dir are created by "node:6-alpine" image.

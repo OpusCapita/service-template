@@ -19,20 +19,20 @@
     "bluebird": "^3.5.0",
     "ocbesbn-config": "^2.2.6",
     "ocbesbn-db-init": "^1.1.9",
-    "ocbesbn-logger": "^1.0.1",
+    "ocbesbn-logger": "^1.0.2",
     "ocbesbn-redis-events": "^1.0.4",
-    "ocbesbn-web-init": "^2.0.0",
-    "sequelize": "^3.30.4"
+    "ocbesbn-web-init": "^2.1.2",
+    "sequelize": "^4.0.0"
   },
   "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0",
     "mocha": "^3.2.0",
     "mocha-junit-reporter": "^1.12.1",
     "nodemon": "^1.11.0",
     "nyc": "^10.2.2",
+    "raml-to-markdown": "^1.1.4",
     "rimraf": "^2.6.0",
-    "raml-to-markdown": "^1.1.1",
-    "sequelize-to-markdown": "^1.1.12",
-    "jsdoc-to-markdown": "^3.0.0"
+    "sequelize-to-markdown": "^1.1.13"
   },
   "scripts": {
     "start": "node src/server/index.js",

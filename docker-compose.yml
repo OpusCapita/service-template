@@ -2,6 +2,7 @@ version: '2'
 services:
   main:
     build: .
+    image: opuscapita/{{your-service-name}}
     depends_on:
       - mysql
       - consul
