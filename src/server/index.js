@@ -25,18 +25,19 @@ db.init({
         addTestData: true
     }
 })
-.then((db) => server.init({
-    server: {
-        mode: server.Server.Mode.Dev,
-        events : {
-            onStart : () => logger.info('Server ready. Allons-y!')
+    .then((db) => server.init({
+        server: {
+            port: {{your-port}},
+            mode: server.Server.Mode.Dev,
+            events: {
+                onStart: () => logger.info('Server ready. Allons-y!')
+            }
+        },
+        routes: {
+            dbInstance: db
         }
-    },
-    routes: {
-        dbInstance: db
-    }
-}))
-.catch((e) => {
-    server.end();
-    throw e;
-});
+    }))
+    .catch((e) => {
+        server.end();
+        throw e;
+    });
