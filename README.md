@@ -83,8 +83,9 @@ or
 docker-compose up
 ```
 
-
 > Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time. If your service did not start press Ctrl+C and run the **docker-compose up** command again.
+
+ > In order to pass additional environment variables (e.g. secrets that must not be saved in the code) change your docker-compose.yml to pass these variables to docker and run your *docker-compose up* commpand by prepending the variables like **MY_VAR=myValue docker-compose up**. You can pass multiple environment variables.
 
 Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show you a "Hello world!".
 
