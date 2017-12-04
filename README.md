@@ -28,9 +28,9 @@ Have fun!
 Clone the repository:
 
 ```
-git clone https://github.com/OpusCapitaBusinessNetwork/service-template.git
+git clone https://github.com/OpusCapita/service-template.git
 - or -
-git clone git@github.com:OpusCapitaBusinessNetwork/service-template.git
+git clone git@github.com:OpusCapita/service-template.git
 ```
 
 First rename the cloned directory **service-template** to the name of your new service and cd into it.
@@ -98,7 +98,7 @@ If all the above test commands succeeded, go to [GitHub](https://github.com) and
 ```
 git add .
 git commit -m "Initial commit."
-git remote add origin https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}
+git remote add origin https://github.com/OpusCapita/{{your-service-name}}
 git push -u origin master
 ```
 
@@ -112,7 +112,7 @@ To configure a project to be built automatically on [CircleCI](https://circleci.
 
 - Login to CircleCI using your web browser.
 - Go to https://circleci.com/add-projects.
-- Select "OpusCapitaBusinessNetwork" on the left.
+- Select "OpusCapita" on the left.
 - Search your repository on the right.
 - Click "Build project" on the right.
 
@@ -151,7 +151,7 @@ If your project consists of a module which should be published to NPM, go to you
 ---
 
 ### Introduction to code
-This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [ocbesbn-config](https://github.com/OpusCapitaBusinessNetwork/config), [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) and [ocbesbn-db-init](https://github.com/OpusCapitaBusinessNetwork/db-init) are meant to setup and maintain all services in a much easier way.
+This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [ocbesbn-config](https://github.com/OpusCapita/config), [ocbesbn-web-init](https://github.com/OpusCapita/web-init) and [ocbesbn-db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
 
 The web server module will allow you to easily publish a service API in a RESTful manner.
 
@@ -241,7 +241,7 @@ For more details take a look at the example files inside the **./src/server/db/m
 ---
 
 ### How to create models
-Database models are located inside the **./src/server/db/models** directory. The database component [ocbesbn-db-init](https://github.com/OpusCapitaBusinessNetwork/db-init) will treat the whole **models** directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
+Database models are located inside the **./src/server/db/models** directory. The database component [ocbesbn-db-init](https://github.com/OpusCapita/db-init) will treat the whole **models** directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
 
 ```JS
 module.exports.init = function(db, config)
@@ -257,7 +257,7 @@ For more details take a look at the example file inside the **./src/server/db/mo
 ---
 
 ### How to create routes
-The REST route configuration is located inside the **./src/server/routes** directory. The web server component [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) will treat the whole directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
+The REST route configuration is located inside the **./src/server/routes** directory. The web server component [ocbesbn-web-init](https://github.com/OpusCapita/web-init) will treat the whole directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
 
 ```JS
 module.exports.init = function(app, db, config)
@@ -311,7 +311,7 @@ Before you can create actual output, please follow this instructions:
 
 - Go to your service repository page on GitHub and create the first wiki page.
 
-- Go to the service code on your local host and clone https://github.com/OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git or git@github.com:OpusCapitaBusinessNetwork/{{your-service-name}}.wiki.git into the directory.
+- Go to the service code on your local host and clone https://github.com/OpusCapita/{{your-service-name}}.wiki.git or git@github.com:OpusCapita/{{your-service-name}}.wiki.git into the directory.
 
 - Rename the directory from {{your-service-name}}.wiki to wiki.
 
@@ -368,7 +368,7 @@ If you are using this service template for creating shared modules, it is always
 
 ### How to get consul configs
 
-In order do use consul in a common, unified way across all services, every service should use the [ocbesbn-config](https://github.com/OpusCapitaBusinessNetwork/config) in order to easily get configuration and endpoint data from the central service registry.
+In order do use consul in a common, unified way across all services, every service should use the [ocbesbn-config](https://github.com/OpusCapita/config) in order to easily get configuration and endpoint data from the central service registry.
 
 ```JS
 const config = require('ocbesbn-config');
@@ -378,13 +378,13 @@ const config = require('ocbesbn-config');
 config.init({}).then(console.log).catch(console.log);
 ```
 
-For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/config/wiki) page.
+For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapita/config/wiki) page.
 
 ---
 
 ### How to do inter-service calls
 
-Inter-service requests should be done using the [ocbesbn-service-client](https://github.com/OpusCapitaBusinessNetwork/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
+Inter-service requests should be done using the [ocbesbn-service-client](https://github.com/OpusCapita/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
 
 Calls to another service using ServiceClient can be done either **without authentication**, **with service authentication** or with **user authentication**.
 
@@ -415,7 +415,7 @@ client.get('main', '/', true).spread(console.log);
 ```
 
 #### Calling services with user authentication
-Calling a service can also be done using a user's authorization so calls are done with ones permissions. This requires making service to service requests from inside an [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) request context. It could be done e.g. inside a middleware or an endpoint.
+Calling a service can also be done using a user's authorization so calls are done with ones permissions. This requires making service to service requests from inside an [ocbesbn-web-init](https://github.com/OpusCapita/web-init) request context. It could be done e.g. inside a middleware or an endpoint.
 
 ```JS
 module.exports.init = function (app, db, config)
@@ -429,4 +429,4 @@ module.exports.init = function (app, db, config)
 }
 ```
 
-For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/service-client/wiki) page.
+For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapita/service-client/wiki) page.
