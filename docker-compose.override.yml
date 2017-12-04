@@ -1,0 +1,9 @@
+version: '2'
+services:
+  main:
+    build: .
+    volumes:
+      - ./src:/home/node/{{your-service-name}}/src
+      - ./config:/home/node/{{your-service-name}}/config
+      - ./wiki:/home/node/{{your-service-name}}/wiki
+    command: 'npm run dev'

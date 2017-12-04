@@ -18,6 +18,8 @@ logger.redirectConsoleOut(); // Force anyone using console outputs into Logger f
 // See logger: https://github.com/OpusCapita/logger
 db.init({
     mode: db.Mode.Dev,
+    retryTimeout: 1000,
+    retryCount: 10,
     consul: {
         host: 'consul'
     },
@@ -25,18 +27,19 @@ db.init({
         addTestData: true
     }
 })
-.then((db) => server.init({
-    server: {
-        mode: server.Server.Mode.Dev,
-        events : {
-            onStart : () => logger.info('Server ready. Allons-y!')
+    .then((db) => server.init({
+        server: {
+            port: {{your-port}},
+            mode: server.Server.Mode.Dev,
+            events: {
+                onStart: () => logger.info('Server ready. Allons-y!')
+            }
+        },
+        routes: {
+            dbInstance: db
         }
-    },
-    routes: {
-        dbInstance: db
-    }
-}))
-.catch((e) => {
-    server.end();
-    throw e;
-});
+    }))
+    .catch((e) => {
+        server.end();
+        throw e;
+    });

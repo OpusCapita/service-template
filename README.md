@@ -1,4 +1,4 @@
-# ocbesbn-service-template
+# opuscapita-service-template
 This repository provides a general service template for creating custom services for OpusCapita Business Network. It supplies most of the required file system structure for building and testing newly created services and is equipped with all basic components to build a RESTful and database oriented service. It provides configurations to build a docker environment to run all tests.
 
 To customize this template to create your own service, just follow the instructions in this document.
@@ -63,14 +63,14 @@ This template uses two docker files that will both build images for you. The **D
 As you need the base image before building the default image for your service, you may have to create your base image manually. Just run:
 
 ```
-docker build -t ocbesbn/{{your-service-name}}-base:latest -f Dockerfile.base .
+docker build -t opuscapita/{{your-service-name}}:base -f Dockerfile.base .
 ```
 
 If desired, you might want to publish your new base image to Docker Hub. To do so, follow these steps:
 
 ```
 docker login
-docker push ocbesbn/{{your-service-name}}-base
+docker push opuscapita/{{your-service-name}}
 ```
 
 If everything worked to your satisfaction, execute the following command to run your new service.
@@ -78,8 +78,14 @@ If everything worked to your satisfaction, execute the following command to run 
 ```
 docker-compose run --service-ports main npm run dev
 ```
+or 
+```
+docker-compose up
+```
 
 > Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time. If your service did not start press Ctrl+C and run the **docker-compose up** command again.
+
+ > In order to pass additional environment variables (e.g. secrets that must not be saved in the code) change your docker-compose.yml to pass these variables to docker and run your *docker-compose up* commpand by prepending the variables like **MY_VAR=myValue docker-compose up**. You can pass multiple environment variables.
 
 Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show you a "Hello world!".
 

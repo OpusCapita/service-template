@@ -1,0 +1,5 @@
+version: '2'
+services:
+  main:
+    image: opuscapita/{{your-service-name}}:dev
+    command: 'npm run dev'
