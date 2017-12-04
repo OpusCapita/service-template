@@ -415,7 +415,7 @@ client.get('main', '/', true).spread(console.log);
 ```
 
 #### Calling services with user authentication
-Calling a service can also be done using a user's authorization so calls are done with this user's permissions. This requires making service to service requests from inside a [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) request context. This can be done e.g. inside a middleware or an endpoint.
+Calling a service can also be done using a user's authorization so calls are done with this user's permissions. This requires making service to service requests from inside an [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) request context. This can be done e.g. inside a middleware or an endpoint.
 
 ```JS
 module.exports.init = function (app, db, config)
