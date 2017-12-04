@@ -111,10 +111,9 @@ After that, you can configure the build server for automated building and testin
 To configure a project to be built automatically on [CircleCI](https://circleci.com) after pushing it to GitHub, please follow these steps:
 
 - Login to CircleCI using your web browser.
-- Go to https://circleci.com/add-projects.
-- Select "OpusCapita" on the left.
-- Search your repository on the right.
-- Click "Build project" on the right.
+- Go to https://circleci.com/add-projects/gh/OpusCapita.
+- Search your repository.
+- Click "Setup project" on the right.
 
 ##### Docker Hub
 
