@@ -3,5 +3,7 @@ services:
   main:
     build: .
     volumes:
-      - .:/home/node/{{your-service-name}}
+      - ./src:/home/node/{{your-service-name}}/src
+      - ./config:/home/node/{{your-service-name}}/config
+      - ./wiki:/home/node/{{your-service-name}}/wiki
     command: 'npm run dev'
