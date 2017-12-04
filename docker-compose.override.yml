@@ -4,5 +4,4 @@ services:
     build: .
     volumes:
       - .:/home/node/{{your-service-name}}
-      - /home/node/{{your-service-name}}/node_modules
     command: 'npm run dev'
