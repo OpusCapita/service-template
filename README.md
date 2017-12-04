@@ -112,7 +112,7 @@ To configure a project to be built automatically on [CircleCI](https://circleci.
 
 - Login to CircleCI using your web browser.
 - Go to https://circleci.com/add-projects/gh/OpusCapita.
-- Search your repository.
+- Find your repository.
 - Click "Setup project" on the right.
 
 ##### Docker Hub
