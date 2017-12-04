@@ -27,10 +27,9 @@ db.init({
         addTestData: true
     }
 })
-    .then((db) => server.init({
+.then((db) => server.init({
         server: {
             port: {{your-port}},
-            mode: server.Server.Mode.Dev,
             events: {
                 onStart: () => logger.info('Server ready. Allons-y!')
             }

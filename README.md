@@ -78,7 +78,7 @@ If everything worked to your satisfaction, execute the following command to run 
 ```
 docker-compose run --service-ports main npm run dev
 ```
-or 
+or
 ```
 docker-compose up
 ```
@@ -382,18 +382,51 @@ For further information on how to use the API of this module please visit its [w
 
 ---
 
-### How to do inter-service requests
+### How to do inter-service calls
 
 Inter-service requests should be done using the [ocbesbn-service-client](https://github.com/OpusCapitaBusinessNetwork/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
+
+Calls to another service using ServiceClient can be done either **without authentication**, **with service authentication** or with **user authentication**.
+
+#### Calling services without user authentication
 
 ```JS
 const ServiceClient = require('ocbesbn-service-client');
 
-var client = new ServiceClient({ consul : { host : '{{your-consul-host}}' } });
+var client = new ServiceClient();
 
-// main => name of service endpoint in Consul.
-// / => path to access on the web server.
+// main => Name of service endpoint in Consul.
+// / => Path to access on the web server.
 client.get('main', '/').spread(console.log);
+```
+
+#### Calling services with service authentication
+Calling a service can also be done using pre-configured service credentials stored in consul. The service name gets determined automatically. For more information please have a look at the ServiceClient documentation.
+
+```JS
+const ServiceClient = require('ocbesbn-service-client');
+
+var client = new ServiceClient();
+
+// main => Name of service endpoint in Consul.
+// / => Path to access on the web server.
+// true => ServiceClient will try to log-in using pre-configured service credentials from consul.
+client.get('main', '/', true).spread(console.log);
+```
+
+#### Calling services with user authentication
+Calling a service can also be done using a user's authorization so calls are done with this user's permissions. This requires making service to service requests from inside a [ocbesbn-web-init](https://github.com/OpusCapitaBusinessNetwork/web-init) request context. This can be done e.g. inside a middleware or an endpoint.
+
+```JS
+module.exports.init = function (app, db, config)
+{
+    app.get('/', (req, res) =>
+    {
+        req.opuscapita.serviceClient.get('main', '/').spread(console.log);
+    });
+
+    return Promise.resolve();
+}
 ```
 
 For further information on how to use the API of this module please visit its [wiki](https://github.com/OpusCapitaBusinessNetwork/service-client/wiki) page.
