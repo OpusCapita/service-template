@@ -401,7 +401,7 @@ client.get('main', '/').spread(console.log);
 ```
 
 #### Calling services with service authentication
-Calling a service can also be done using pre-configured service credentials stored in consul. The service name gets determined automatically. For more information please have a look at the ServiceClient documentation.
+Calling a service can also be done using pre-configured service credentials stored in consul. The service name gets determined automatically. For more information please have a look at the [ServiceClient](https://github.com/OpusCapita/service-client#origin-service-based-authentication) documentation.
 
 ```JS
 const ServiceClient = require('ocbesbn-service-client');
