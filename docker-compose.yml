@@ -9,11 +9,16 @@ services:
       - redis
     labels:
       SERVICE_NAME: '{{your-service-name}}'
+      SERVICE_TAGS: 'kong'
     environment:
       NODE_ENV: ${NODE_ENV}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       REDIS_AUTH: ${REDIS_AUTH}
+      SERVICE_{{PORT}}_NAME: purchase-order
+      SERVICE_{{PORT}}_CHECK_HTTP: /api/health/check
+      SERVICE_{{PORT}}_CHECK_INTERVAL: 15s
+      SERVICE_{{PORT}}_CHECK_TIMEOUT: 3s
     ports:
       - '${PORT}:${PORT}'
 
