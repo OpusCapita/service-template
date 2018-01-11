@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "{{service-description}}",
   "author": "{{your-name}}",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OpusCapita/{{your-service-name}}"
@@ -13,7 +13,9 @@
   },
   "homepage": "https://github.com/OpusCapita/{{your-service-name}}",
   "nyc": {
-    "exclude": []
+    "exclude": [
+      "test"
+    ]
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -40,7 +42,7 @@
     "dev": "npm run setup-consul ; npx nodemon --watch src/server src/server/index.js",
     "test": "npm run clean ; npm run setup-consul ; npx nyc mocha --recursive -R mocha-junit-reporter",
     "clean": "npx rimraf .nyc_output coverage test-results.xml",
-    "setup-consul": "curl -X PUT -d ${MYSQL_DATABASE} http://consul:8500/v1/kv/{{your-service-name}}/db-init/database ; curl -X PUT -d 'root' http://consul:8500/v1/kv/{{your-service-name}}/db-init/user ; curl -X PUT -d ${MYSQL_ROOT_PASSWORD} http://consul:8500/v1/kv/{{your-service-name}}/db-init/password ; curl -X PUT -d 'true' http://consul:8500/v1/kv/{{your-service-name}}/db-init/populate-test-data ; curl -X PUT -d ${REDIS_AUTH} http://consul:8500/v1/kv/{{your-service-name}}/redis/password",
+    "setup-consul": "sh setup-consul.sh",
     "rest-doc": "mkdir -p wiki/rest-doc ; npx raml2md -o file-per-resource -p wiki/rest-doc --output-ext=.endpoint.md rest-doc/main.raml",
     "domain-doc": "mkdir -p wiki/domain-doc ; npx sq2md -o file-per-src -p wiki/domain-doc --init=init --field-bl=createdAt,updatedAt --output-ext=.model.md src/server/db/models",
     "api-doc": "mkdir -p wiki/api-doc ; npx jsdoc2md -f $(find src/server) > wiki/api-doc/Home.md",
