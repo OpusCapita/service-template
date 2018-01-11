@@ -119,6 +119,9 @@ To configure a project to be built automatically on [CircleCI](https://circleci.
 
 Your **circleci.yml** uses environment variables to automatically deploy modules and docker images. In order to use this feature, you have to set these variables up by editing the settings of your newly created build project. By default, this template requires the following variables to be defined in the "Environment Variables" section of CircleCI:
 
+- GIT_TOKEN (This is a personal access token created in GitHub https://github.com/settings/developers with repo permission)
+- GIT_USER
+- GIT_EMAIL
 - DOCKER_USER (User on Docker Hub)
 - DOCKER_PASS
 - DOCKER_EMAIL

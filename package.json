@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "{{service-description}}",
   "author": "{{your-name}}",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OpusCapita/{{your-service-name}}"
@@ -13,7 +13,9 @@
   },
   "homepage": "https://github.com/OpusCapita/{{your-service-name}}",
   "nyc": {
-    "exclude": []
+    "exclude": [
+      "test"
+    ]
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -37,13 +39,13 @@
   },
   "scripts": {
     "start": "node src/server/index.js",
-    "dev": "npm run setup-consul ; ${NODE_PATH}/.bin/nodemon --watch src/server src/server/index.js",
-    "test": "npm run clean ; npm run setup-consul ; ${NODE_PATH}/.bin/nyc ${NODE_PATH}/.bin/mocha --recursive -R mocha-junit-reporter",
-    "clean": "${NODE_PATH}/.bin/rimraf .nyc_output coverage test-results.xml",
+    "dev": "npm run setup-consul ; npx nodemon --watch src/server src/server/index.js",
+    "test": "npm run clean ; npm run setup-consul ; npx nyc mocha --recursive -R mocha-junit-reporter",
+    "clean": "npx rimraf .nyc_output coverage test-results.xml",
     "setup-consul": "sh setup-consul.sh",
-    "rest-doc": "mkdir -p wiki/rest-doc ; ${NODE_PATH}/.bin/raml2md -o file-per-resource -p wiki/rest-doc --output-ext=.endpoint.md rest-doc/main.raml",
-    "domain-doc": "mkdir -p wiki/domain-doc ; ${NODE_PATH}/.bin/sq2md -o file-per-src -p wiki/domain-doc --init=init --field-bl=createdAt,updatedAt --output-ext=.model.md src/server/db/models",
-    "api-doc": "mkdir -p wiki/api-doc ; ${NODE_PATH}/.bin/jsdoc2md -f $(find src/server) > wiki/api-doc/Home.md",
+    "rest-doc": "mkdir -p wiki/rest-doc ; npx raml2md -o file-per-resource -p wiki/rest-doc --output-ext=.endpoint.md rest-doc/main.raml",
+    "domain-doc": "mkdir -p wiki/domain-doc ; npx sq2md -o file-per-src -p wiki/domain-doc --init=init --field-bl=createdAt,updatedAt --output-ext=.model.md src/server/db/models",
+    "api-doc": "mkdir -p wiki/api-doc ; npx jsdoc2md -f $(find src/server) > wiki/api-doc/Home.md",
     "doc": "npm run rest-doc ; npm run domain-doc ; npm run api-doc"
   }
 }
