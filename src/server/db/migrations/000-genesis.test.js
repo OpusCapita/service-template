@@ -1,7 +1,4 @@
-'use strict'
-
 const Sequelize = require('sequelize');
-const Promise = require('bluebird');
 
 /**
  * Inserts test data into existing database structures.
@@ -9,9 +6,9 @@ const Promise = require('bluebird');
  * To identify which migrations have successfully been processed, a migration's filename is used.
  *
  * @param {object} data - [Sequelize]{@link https://github.com/sequelize/sequelize} instance.
- * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapitaBusinessNetwork/db-init} passed when running the db-initialization.
+ * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapita/db-init} passed when running the db-initialization.
  * @returns {Promise} [Promise]{@link http://bluebirdjs.com/docs/api-reference.html}
- * @see [Applying data migrations]{@link https://github.com/OpusCapitaBusinessNetwork/db-init#applying-data-migrations}
+ * @see [Applying data migrations]{@link https://github.com/OpusCapita/db-init#applying-data-migrations}
  */
 module.exports.up = function(db, config)
 {
@@ -27,9 +24,9 @@ module.exports.up = function(db, config)
  * If the migration process throws an error, this method is called in order to revert all changes made by the up() method.
  *
  * @param {object} data - [Sequelize]{@link https://github.com/sequelize/sequelize} instance.
- * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapitaBusinessNetwork/db-init} passed when running the db-initialization.
+ * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapita/db-init} passed when running the db-initialization.
  * @returns {Promise} [Promise]{@link http://bluebirdjs.com/docs/api-reference.html}
- * @see [Applying data migrations]{@link https://github.com/OpusCapitaBusinessNetwork/db-init#applying-data-migrations}
+ * @see [Applying data migrations]{@link https://github.com/OpusCapita/db-init#applying-data-migrations}
  */
 module.exports.down = function(db, config)
 {

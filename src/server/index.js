@@ -1,8 +1,6 @@
-'use strict';
-
 const Logger = require('ocbesbn-logger'); // Logger
-const server = require('ocbesbn-web-init'); // Web server
-const db = require('ocbesbn-db-init'); // Database
+const server = require('@opuscapita/web-init'); // Web server
+const dbInit = require('ocbesbn-db-init'); // Database
 
 const logger = new Logger({
     context: {
@@ -10,35 +8,34 @@ const logger = new Logger({
     }
 });
 
-logger.redirectConsoleOut(); // Force anyone using console outputs into Logger format.
+logger.redirectConsoleOut(); // Force anyone using console.* outputs into Logger format.
 
 // Basic database and web server initialization.
-// See database : https://github.com/OpusCapitaBusinessNetwork/db-init
-// See web server: https://github.com/OpusCapitaBusinessNetwork/web-init
+// See database : https://github.com/OpusCapita/db-init
+// See web server: https://github.com/OpusCapita/web-init
 // See logger: https://github.com/OpusCapita/logger
-db.init({
-    mode: db.Mode.Dev,
-    retryTimeout: 1000,
-    retryCount: 10,
-    consul: {
-        host: 'consul'
-    },
-    data: {
-        addTestData: true
-    }
-})
-.then((db) => server.init({
-        server: {
-            port: {{your-port}},
-            events: {
+async function init()
+{
+    const db = await db.init({
+        retryTimeout : 1000,
+        retryCount : 50,
+        consul : {
+            host: 'consul'
+        }
+    });
+
+    await server.init({
+        server : {
+            port : process.ENV.port || {{your-port}},
+            enableBouncer : true,
+            events : {
                 onStart: () => logger.info('Server ready. Allons-y!')
             }
         },
-        routes: {
-            dbInstance: db
+        routes : {
+            dbInstance : db
         }
-    }))
-    .catch((e) => {
-        server.end();
-        throw e;
     });
+}
+
+(() => init().catch(console.error))();
