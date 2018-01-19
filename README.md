@@ -5,7 +5,6 @@ To customize this template to create your own service, just follow the instructi
 Have fun!
 
 #### Index
-
 - [Get it!](#get-it)
 - [Docker](#docker)
 - [Adding to GitHub](#adding-to-github)
@@ -113,7 +112,14 @@ To configure a project to be built automatically on [CircleCI](https://circleci.
 - Login to CircleCI using your web browser.
 - Go to https://circleci.com/add-projects/gh/OpusCapita.
 - Find your repository.
-- Click "Setup project" on the right.
+- Click "Setup project" on the right
+- Configure Environment variables and SSH keys on circle, see https://github.com/OpusCapita/andariel-knowledgebase/wiki/Configuring-projects-on-circleci
+
+#### Configure project to be included in andariel build process updates
+
+Configure topics "microservice" and "andariel" in the github repo.
+This ensures rollout is including this service.
+See https://github.com/OpusCapita/andariel-knowledgebase/wiki/Update-andariel-build-process
 
 ##### Docker Hub
 
