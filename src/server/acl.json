@@ -1,14 +1,12 @@
 {
     "service-template-example": {
-        "translations": {
-            "name": {
-                "en": "Service Template example configuration.",
-                "de": ""
-            },
-            "description": {
-                "en": "Please change this to fit your security configuration.",
-                "de": ""
-            }
+        "name": {
+            "en": "Service Template example configuration.",
+            "de": ""
+        },
+        "description": {
+            "en": "Please change this to fit your security configuration.",
+            "de": ""
         },
         "resources": [{
             "type": "rest",

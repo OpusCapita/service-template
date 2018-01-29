@@ -1,6 +1,6 @@
 const Logger = require('ocbesbn-logger'); // Logger
 const server = require('@opuscapita/web-init'); // Web server
-const dbInit = require('ocbesbn-db-init'); // Database
+const dbInit = require('@opuscapita/db-init'); // Database
 
 const logger = new Logger({
     context: {
