@@ -15,7 +15,4 @@ module.exports.init = async function(db, config)
     // http://docs.sequelizejs.com/en/latest/api/model/
     //
     // db.define(...);
-
-    // Always return a promise or use await.
-    return Promise.resolve();
 }

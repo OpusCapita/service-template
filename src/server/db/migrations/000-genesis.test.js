@@ -7,16 +7,13 @@ const Sequelize = require('sequelize');
  *
  * @param {object} data - [Sequelize]{@link https://github.com/sequelize/sequelize} instance.
  * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapita/db-init} passed when running the db-initialization.
- * @returns {Promise} [Promise]{@link http://bluebirdjs.com/docs/api-reference.html}
+ * @returns {Promise} JavaScript Promise object.
  * @see [Applying data migrations]{@link https://github.com/OpusCapita/db-init#applying-data-migrations}
  */
-module.exports.up = function(db, config)
+module.exports.up = async function(db, config)
 {
     // Add all structual and data migrations here.
     // You may use db.getQueryInterface() for structures and config.models for working with data.
-
-    // Always return a promise.
-    return Promise.resolve();
 }
 
 /**
@@ -25,11 +22,9 @@ module.exports.up = function(db, config)
  *
  * @param {object} data - [Sequelize]{@link https://github.com/sequelize/sequelize} instance.
  * @param {object} config - A model property for database models and everything from [config.data]{@link https://github.com/OpusCapita/db-init} passed when running the db-initialization.
- * @returns {Promise} [Promise]{@link http://bluebirdjs.com/docs/api-reference.html}
+ * @returns {Promise} JavaScript Promise object.
  * @see [Applying data migrations]{@link https://github.com/OpusCapita/db-init#applying-data-migrations}
  */
-module.exports.down = function(db, config)
+module.exports.down = async function(db, config)
 {
-    // Always return a promise.
-    return Promise.resolve();
 }
