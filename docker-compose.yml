@@ -9,7 +9,7 @@ services:
       - redis
     labels:
       SERVICE_NAME: '{{your-service-name}}'
-      SERVICE_TAGS: 'kong'
+      SERVICE_TAGS: 'external'
     environment:
       NODE_ENV: ${NODE_ENV}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
