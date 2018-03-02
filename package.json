@@ -18,9 +18,9 @@
     ]
   },
   "dependencies": {
+    "@opuscapita/db-init": "^2.0.7",
     "@opuscapita/web-init": "^3.0.2",
     "ocbesbn-config": "^2.2.6",
-    "ocbesbn-db-init": "^1.1.9",
     "ocbesbn-logger": "^1.0.2",
     "sequelize": "^4.0.0"
   },
@@ -30,7 +30,7 @@
     "mocha-junit-reporter": "^1.12.1",
     "nodemon": "^1.11.0",
     "nyc": "^10.2.2",
-    "raml-to-markdown": "^1.1.4",
+    "raml-to-markdown": "^1.1.9",
     "rimraf": "^2.6.0",
     "sequelize-to-markdown": "^1.1.13"
   },

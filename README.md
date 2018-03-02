@@ -159,7 +159,7 @@ If your project consists of a module which should be published to NPM, go to you
 ---
 
 ### Introduction to code
-This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [ocbesbn-config](https://github.com/OpusCapita/config), [web-init](https://github.com/OpusCapita/web-init) and [ocbesbn-db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
+This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [ocbesbn-config](https://github.com/OpusCapita/config), [web-init](https://github.com/OpusCapita/web-init) and [@opuscapita/db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
 
 The web server module will allow you to easily publish a service API in a RESTful manner.
 
@@ -249,7 +249,7 @@ For more details take a look at the example files inside the **./src/server/db/m
 ---
 
 ### How to create models
-Database models are located inside the **./src/server/db/models** directory. The database component [ocbesbn-db-init](https://github.com/OpusCapita/db-init) will treat the whole **models** directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
+Database models are located inside the **./src/server/db/models** directory. The database component [@opuscapita/db-init](https://github.com/OpusCapita/db-init) will treat the whole **models** directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
 
 ```JS
 module.exports.init = function(db, config)
@@ -423,7 +423,7 @@ client.get('main', '/', true).spread(console.log);
 ```
 
 #### Calling services with user authentication
-Calling a service can also be done using a user's authorization so calls are done with ones permissions. This requires making service to service requests from inside an [ocbesbn-web-init](https://github.com/OpusCapita/web-init) request context. It could be done e.g. inside a middleware or an endpoint.
+Calling a service can also be done using a user's authorization so calls are done with ones permissions. This requires making service to service requests from inside an [@opuscapita/web-init](https://github.com/OpusCapita/web-init) request context. It could be done e.g. inside a middleware or an endpoint.
 
 ```JS
 module.exports.init = function (app, db, config)

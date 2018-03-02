@@ -14,9 +14,6 @@ module.exports.up = async function(db, config)
 {
     // Add all structure and data migrations here.
     // You may use db.getQueryInterface() for structures and config.models for working with data.
-
-    // Always return a promise or use await.
-    return Promise.resolve();
 }
 
 /**
@@ -30,6 +27,4 @@ module.exports.up = async function(db, config)
  */
 module.exports.down = async function(db, config)
 {
-    // Always return a promise or use await.
-    return Promise.resolve();
 }
