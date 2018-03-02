@@ -8,7 +8,8 @@ const logger = new Logger({
     }
 });
 
-logger.redirectConsoleOut(); // Force anyone using console.* outputs into Logger format.
+if(process.env.NODE_ENV !== 'develop')
+    logger.redirectConsoleOut(); // Force anyone using console.* outputs into Logger format.
 
 // Basic database and web server initialization.
 // See database : https://github.com/OpusCapita/db-init
@@ -16,7 +17,7 @@ logger.redirectConsoleOut(); // Force anyone using console.* outputs into Logger
 // See logger: https://github.com/OpusCapita/logger
 async function init()
 {
-    const db = await db.init({
+    const db = await dbInit.init({
         retryTimeout : 1000,
         retryCount : 50,
         consul : {
@@ -26,7 +27,7 @@ async function init()
 
     await server.init({
         server : {
-            port : process.ENV.port || {{your-port}},
+            port : process.env.port || {{your-port}},
             enableBouncer : true,
             events : {
                 onStart: () => logger.info('Server ready. Allons-y!')
