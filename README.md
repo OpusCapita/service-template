@@ -8,6 +8,7 @@ Have fun!
 - [Get it!](#get-it)
 - [Docker](#docker)
 - [Adding to GitHub](#adding-to-github)
+- [BNP architecture](#bnp-architecture)
 - [Build server (CircleCI)](#build-server-circleci)
 - [Introduction to code](#introduction-to-code)
 - [Service structure](#service-structure)
@@ -86,6 +87,8 @@ docker-compose up
 
  > In order to pass additional environment variables (e.g. secrets that must not be saved in the code) change your docker-compose.yml to pass these variables to docker and run your *docker-compose up* commpand by prepending the variables like **MY_VAR=myValue docker-compose up**. You can pass multiple environment variables.
 
+> For a list of all used ports, please have a look the [service port list](https://github.com/OpusCapita/bnp/wiki/portList).
+
 Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show you a "Hello world!".
 
 ---
@@ -102,6 +105,17 @@ git push -u origin master
 ```
 
 After that, you can configure the build server for automated building and testing.
+
+---
+
+### BNP architecture
+
+The technical foundation of the Business Network Portal is the [Andariel](https://github.com/OpusCapita/andariel) platform. For further information, please visit the following links:
+
+* [Architecture](https://github.com/OpusCapita/bnp/wiki/Architecture)
+* [Authentication Flow](https://github.com/OpusCapita/bnp/wiki/Authentication-Flow)
+* [Build Process](https://github.com/OpusCapita/bnp/wiki/Build-Process)
+* [Service port list](https://github.com/OpusCapita/bnp/wiki/portList)
 
 ---
 
@@ -159,7 +173,7 @@ If your project consists of a module which should be published to NPM, go to you
 ---
 
 ### Introduction to code
-This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [ocbesbn-config](https://github.com/OpusCapita/config), [web-init](https://github.com/OpusCapita/web-init) and [@opuscapita/db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
+This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [config](https://github.com/OpusCapita/config), [web-init](https://github.com/OpusCapita/web-init) and [db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
 
 The web server module will allow you to easily publish a service API in a RESTful manner.
 
@@ -226,19 +240,17 @@ All Structure and data migration files have to be suffixed with **.main.js** whi
 
 ```JS
 // Executed when a migration should be applied.
-module.exports.up = function(db, config)
+module.exports.up = async function(db, config)
 {
     // Code goes here.
     // Always return a promise.
-    return Promise.resolve();
 }
 
 // Executed if an applied migration should get reverted.
-module.exports.down = function(db, config)
+module.exports.down = async function(db, config)
 {
     // Code goes here.
     // Always return a promise.
-    return Promise.resolve();
 }
 ```
 
@@ -252,11 +264,10 @@ For more details take a look at the example files inside the **./src/server/db/m
 Database models are located inside the **./src/server/db/models** directory. The database component [@opuscapita/db-init](https://github.com/OpusCapita/db-init) will treat the whole **models** directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
 
 ```JS
-module.exports.init = function(db, config)
+module.exports.init = async function(db, config)
 {
     // Code goes here.
     // Always return a promise.
-    return Promise.resolve();
 }
 ```
 
@@ -268,11 +279,10 @@ For more details take a look at the example file inside the **./src/server/db/mo
 The REST route configuration is located inside the **./src/server/routes** directory. The web server component [web-init](https://github.com/OpusCapita/web-init) will treat the whole directory as a single module. It is up to the developer of a service to structure the rest of this directory. In order to get executed, the module has to provide an **index.js** file defining the following structure:
 
 ```JS
-module.exports.init = function(app, db, config)
+module.exports.init = async function(app, db, config)
 {
     // Code goes here.
     // Always return a promise.
-    return Promise.resolve();
 }
 ```
 For more details take a look at the example file inside the **./src/server/routes** directory of this service template.
@@ -281,7 +291,7 @@ For more details take a look at the example file inside the **./src/server/route
 
 ### How to do logging
 
-Logging in services should be done using the [ocbesbn-logger](https://github.com/OpusCapita/logger) module. It provides context extended logging in a common way which is flexible and consistent at the same time. For further information about the API of this module visit it's [wiki](https://github.com/OpusCapita/logger).
+Logging in services should be done using the [logger](https://github.com/OpusCapita/logger) module. It provides context extended logging in a common way which is flexible and consistent at the same time. For further information about the API of this module visit it's [wiki](https://github.com/OpusCapita/logger).
 
 ```JS
 const Logger = require('ocbesbn-logger');
@@ -376,10 +386,10 @@ If you are using this service template for creating shared modules, it is always
 
 ### How to get consul configs
 
-In order do use consul in a common, unified way across all services, every service should use the [ocbesbn-config](https://github.com/OpusCapita/config) in order to easily get configuration and endpoint data from the central service registry.
+In order do use consul in a common, unified way across all services, every service should use the [@opuscapita/config](https://github.com/OpusCapita/config) in order to easily get configuration and endpoint data from the central service registry.
 
 ```JS
-const config = require('ocbesbn-config');
+const config = require('@opuscapita/config');
 
 // You might want to pass a configuration object to the init method. A list of parameters and their default values
 // can be found at the .DefaultConfig module property.
@@ -392,7 +402,7 @@ For further information on how to use the API of this module please visit its [w
 
 ### How to do inter-service calls
 
-Inter-service requests should be done using the [ocbesbn-service-client](https://github.com/OpusCapita/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
+Inter-service requests should be done using the [service-client](https://github.com/OpusCapita/service-client) module. It integrates well into the OpusCapita Business Network eco system and is designed to use consul in order to dynamically get endpoint configurations to access the target service requested. With this module a developer does not have to know hostname/IP and port of the target service. It's name inside the consul service registry and the requested URI would be enough.
 
 Calls to another service using ServiceClient can be done either **without authentication**, **with service authentication** or with **user authentication**.
 
@@ -426,14 +436,12 @@ client.get('main', '/', true).spread(console.log);
 Calling a service can also be done using a user's authorization so calls are done with ones permissions. This requires making service to service requests from inside an [@opuscapita/web-init](https://github.com/OpusCapita/web-init) request context. It could be done e.g. inside a middleware or an endpoint.
 
 ```JS
-module.exports.init = function (app, db, config)
+module.exports.init = async function (app, db, config)
 {
     app.get('/', (req, res) =>
     {
         req.opuscapita.serviceClient.get('main', '/').spread(console.log);
     });
-
-    return Promise.resolve();
 }
 ```
 

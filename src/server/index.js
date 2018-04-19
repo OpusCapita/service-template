@@ -17,18 +17,13 @@ if(process.env.NODE_ENV !== 'develop')
 // See logger: https://github.com/OpusCapita/logger
 async function init()
 {
-    const db = await dbInit.init({
-        retryTimeout : 1000,
-        retryCount : 50,
-        consul : {
-            host: 'consul'
-        }
-    });
+    const db = await dbInit.init();
 
     await server.init({
         server : {
             port : process.env.port || {{your-port}},
             enableBouncer : true,
+            enableEventClient : true,
             events : {
                 onStart: () => logger.info('Server ready. Allons-y!')
             }
