@@ -138,7 +138,7 @@ services:
       GATEWAY_SCHEME: 'http'
       GATEWAY_IP: 'localhost'
       GATEWAY_PORT: '8080'
-      GATEWAY_CALLBACK:'auth/callback'
+      GATEWAY_CALLBACK: 'auth/callback'
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -161,7 +161,7 @@ services:
   api-registry:
     image: opuscapita/api-registrator:dev
     ports:
-      - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
+      - '3004:3004'
     environment:
       AUTH_SERVER: $AUTH_SERVER
       AUTH_SERVER_PORT: $AUTH_SERVER_PORT
