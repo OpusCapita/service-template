@@ -16,6 +16,7 @@
     "oc-db-init":{"populate-test-data":"true"},
     "oc-consul-injection":{
       "redis/password": "${SECRET_:env_REDIS}"
-    }
+    },
+    "limit-memory": "250M"
   }
 }

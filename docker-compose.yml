@@ -3,10 +3,16 @@ services:
   main:
     image: opuscapita/{{your-service-name}}
     depends_on:
+      - redis
       - mysql
       - consul
       - registrator
-      - redis
+      - kong
+      - user
+      - acl
+      - auth
+      - api-registry
+      - rabbitmq
     labels:
       SERVICE_NAME: '{{your-service-name}}'
       SERVICE_TAGS: 'external'
@@ -42,6 +48,153 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock
     depends_on:
       - consul
+
+  redis:
+    image: opuscapita/redis:dev
+    ports:
+      - '6379:6379'
+    environment:
+      REDIS_AUTH: ${REDIS_AUTH}
+    depends_on:
+      - registrator
+
+  user:
+    image: opuscapita/user:dev
+    depends_on:
+      - mysql
+      - consul
+      - registrator
+      - redis
+      - acl
+      - rabbitmq
+    labels:
+      SERVICE_NAME: 'user'
+      SERVICE_TAGS: 'external,kong'
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      REDIS_AUTH: ${REDIS_AUTH}
+      SERVICE_3008_CHECK_HTTP: /api/health/check
+      SERVICE_3008_CHECK_INTERVAL: 15s
+      SERVICE_3008_CHECK_TIMEOUT: 3s
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+    ports:
+      - '3008:3008'
+    command: 'npm run dev:production'
+
+  acl:
+    image: opuscapita/acl:dev
+    labels:
+      - 'SERVICE_NAME=acl'
+      - 'SERVICE_TAGS=external,kong'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      REDIS_AUTH: ${REDIS_AUTH}
+      SERVICE_3013_CHECK_HTTP: /api/health/check
+      SERVICE_3013_CHECK_INTERVAL: 15s
+      SERVICE_3013_CHECK_TIMEOUT: 3s
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+    ports:
+     - '3013:3013'
+    depends_on:
+      - mysql
+      - registrator
+    command: 'npm run dev:production'
+
+  auth:
+    image: opuscapita/auth:dev
+    ports:
+     - '3005:3005'
+    environment:
+      GATEWAY_SCHEME: 'http'
+      GATEWAY_IP: 'localhost'
+      GATEWAY_PORT: '8080'
+      GATEWAY_CALLBACK: 'auth/callback'
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      REDIS_AUTH: ${REDIS_AUTH}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASS: ${RABBITMQ_PASS}
+      SERVICE_3005_CHECK_HTTP: /auth/certs
+      SERVICE_3005_CHECK_INTERVAL: 15s
+      SERVICE_3005_CHECK_TIMEOUT: 3s
+    depends_on:
+      - kong
+      - consul
+    command: 'npm run dev:production'
+
+  kong:
+    image: opuscapita/kong:dev
+    environment:
+      KONG_DATABASE: 'postgres'
+      KONG_PG_HOST: '172.17.0.1'
+      KONG_PG_PORT: '5432'
+      APP_HOST: ${HOST_IP}
+      APP_HOST_PROTOCOL: 'http'
+      APP_HOST_PORT: 3005
+      GATEWAY_SCHEME: 'http'
+      GATEWAY_IP: 'localhost'
+      GATEWAY_PORT: '8080'
+      GATEWAY_CALLBACK:'auth/callback'
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      REDIS_HOST: ${HOST_IP}
+      REDIS_PORT: 6379
+      REDIS_AUTH: ${REDIS_AUTH} 
+      SERVICE_8001_NAME: 'kong'
+      SERVICE_8080_NAME: 'kong-http'
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+      - '8001:8001'
+      - '7946:7946'
+      - '7946:7946/udp'
+    depends_on:
+      - postgres
+      - mysql
+      - redis
+
+  api-registry:
+    image: opuscapita/api-registrator:dev
+    ports:
+      - '$API_REGISTRY_PORT:$API_REGISTRY_PORT'
+    environment:
+      AUTH_SERVER: $AUTH_SERVER
+      AUTH_SERVER_PORT: $AUTH_SERVER_PORT
+      API_REGISTRY_PORT: $API_REGISTRY_PORT
+      GATEWAY_CALLBACK: $GATEWAY_CALLBACK
+      SERVICE_3004_CHECK_HTTP: /api/health/check
+      SERVICE_3004_CHECK_INTERVAL: 15s
+      SERVICE_3004_CHECK_TIMEOUT: 3s
+    depends_on:
+      - kong
+
+  postgres:
+    image: postgres:9.4
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_DB}
+      POSTGRES_DB: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - registrator
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+        - '4369:4369'
+        - '5671:5671'
+        - '5672:5672'
+        - '15672:15672'
+    environment:
+        RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+        RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+        SERVICE_5672_NAME: 'rabbitmq-amqp'
 
   redis:
     image: opuscapita/redis:dev
