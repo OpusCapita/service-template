@@ -1,7 +1,8 @@
 version: '2'
 services:
   main:
-    image: opuscapita/{{your-service-name}}
+    build: .
+    image: opuscapita/{{your-service-name}}:dev
     depends_on:
       - redis
       - mysql
