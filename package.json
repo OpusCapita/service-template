@@ -18,10 +18,10 @@
     ]
   },
   "dependencies": {
-    "@opuscapita/config": "^3.0.2",
-    "@opuscapita/db-init": "^2.0.7",
-    "@opuscapita/web-init": "^3.0.2",
-    "ocbesbn-logger": "^1.0.2",
+    "@opuscapita/config": "^3.0.16",
+    "@opuscapita/db-init": "^2.0.24",
+    "@opuscapita/web-init": "^3.0.87",
+    "ocbesbn-logger": "^1.0.11",
     "sequelize": "^4.0.0"
   },
   "devDependencies": {
@@ -30,9 +30,9 @@
     "mocha-junit-reporter": "^1.12.1",
     "nodemon": "^1.11.0",
     "nyc": "^10.2.2",
-    "raml-to-markdown": "^1.1.9",
+    "raml-to-markdown": "^1.2.6",
     "rimraf": "^2.6.0",
-    "sequelize-to-markdown": "^1.2.1"
+    "sequelize-to-markdown": "^1.2.6"
   },
   "scripts": {
     "start": "node src/server/index.js",
