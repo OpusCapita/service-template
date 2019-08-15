@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   main:
     build: .
@@ -207,7 +207,7 @@ services:
       - registrator
 
   consul:
-    image: consul:latest
+    image: consul:1.4
     ports:
       - '8400:8400'
       - '8500:8500'
