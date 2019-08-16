@@ -18,7 +18,7 @@ services:
       SERVICE_NAME: '{{your-service-name}}'
       SERVICE_TAGS: 'external'
     environment:
-      NODE_ENV: 'develop'
+      NODE_ENV: 'development'
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       RABBITMQ_USER: ${RABBITMQ_USER}
