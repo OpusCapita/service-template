@@ -16,6 +16,7 @@ async function init()
 {
     const db = await dbInit.init();
 
+    // TODO: Remove this once you have real permissions using ACL.
     if(isDevMode)
         await db.query('REPLACE INTO Permission (authorityId, resourceGroupId) VALUES("user", "{{your-service-name}}/*")');
     
