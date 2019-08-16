@@ -17,7 +17,7 @@ async function init()
     const db = await dbInit.init();
 
     if(isDevMode)
-        await db.query('REPLACE INTO Permission (authorityId, resourceGroupId) VALUES("user", "{{service-name}}/*")');
+        await db.query('REPLACE INTO Permission (authorityId, resourceGroupId) VALUES("user", "{{your-service-name}}/*")');
     
     await server.init({
         server : {
