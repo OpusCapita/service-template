@@ -2,7 +2,7 @@ const Logger = require('ocbesbn-logger'); // Logger
 const server = require('@opuscapita/web-init'); // Web server
 const dbInit = require('@opuscapita/db-init'); // Database
 
-const isDevMode = process.env.NODE_ENV === 'develop';
+const isDevMode = process.env.NODE_ENV === 'development';
 const logger = new Logger();
 
 if(!isDevMode)
