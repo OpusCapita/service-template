@@ -184,7 +184,7 @@ Now pushing to GitHub should work as expected.
 
 If your project consists of a module which should be published to NPM, go to your **circleci.yml** file and uncomment all sections prefixed with **NPM_**. Additionally you will have to add the following environment variables to CircleCI:
 
-- NPM_USER (User on NPM)
+- NPM_USER
 - NPM_PASS
 - NPM_EMAIL
 
