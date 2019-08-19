@@ -104,6 +104,8 @@ There are several different start scripts ready to be used to run your service. 
 - npm run **test-raw**
   > Runs tests exactly like npm run test but outputs directly to the console not to a file.
 
+---
+
 ### Docker
 
 You can now buil your service image the first time. You can either build it through a **docker build** command or through a **docker-compose build** command from within the service's directory:
