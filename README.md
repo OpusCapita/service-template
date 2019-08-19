@@ -1,25 +1,44 @@
 # opuscapita-service-template
-This repository provides a general service template for creating custom services for OpusCapita Business Network. It supplies most of the required file system structure for building and testing newly created services and is equipped with all basic components to build a RESTful and database oriented service. It provides configurations to build a docker environment to run all tests.
+This repository provides a general service template for creating custom services based on the Andariel platform. It supplies most of the required file system structure and libraries for building and testing newly created services and is equipped with all basic components to build a RESTful and database oriented service. It provides configurations to build a docker environment to run the code, UIs and tests.
 
 To customize this template to create your own service, just follow the instructions in this document.
 Have fun!
 
 #### Index
-- [Get it!](#get-it)
-- [Docker](#docker)
-- [Adding to GitHub](#adding-to-github)
-- [BNP architecture](#bnp-architecture)
-- [Build server (CircleCI)](#build-server-circleci)
-- [Introduction to code](#introduction-to-code)
-- [Service structure](#service-structure)
-- [How to create migrations](#how-to-create-migrations)
-- [How to create models](#how-to-create-models)
-- [How to create routes](#how-to-create-routes)
-- [How to do logging](#how-to-do-logging)
-- [How to write tests](#how-to-write-tests)
-- [How to create documentation](#how-to-create-documentation)
-- [How to get consul configs](#how-to-get-consul-configs)
-- [How to do inter-service requests](#how-to-do-inter-service-requests)
+- [opuscapita-service-template](#opuscapita-service-template)
+      - [Index](#index)
+    - [Get it!](#get-it)
+    - [Docker](#docker)
+    - [Adding to GitHub](#adding-to-github)
+    - [BNP architecture](#bnp-architecture)
+    - [Build server (CircleCI)](#build-server-circleci)
+      - [Configure project to be included in andariel build process updates](#configure-project-to-be-included-in-andariel-build-process-updates)
+        - [Docker Hub](#docker-hub)
+        - [GitHub](#github)
+        - [NPM](#npm)
+    - [Introduction to code](#introduction-to-code)
+        - [Consul server](#consul-server)
+    - [Service structure](#service-structure)
+        - [config directory](#config-directory)
+        - [src directory](#src-directory)
+        - [test directory](#test-directory)
+    - [How to create migrations](#how-to-create-migrations)
+        - [Files](#files)
+    - [How to create models](#how-to-create-models)
+    - [How to create routes](#how-to-create-routes)
+    - [How to do logging](#how-to-do-logging)
+    - [How to write tests](#how-to-write-tests)
+    - [How to create documentation](#how-to-create-documentation)
+      - [Preparing documentation](#preparing-documentation)
+      - [Service API documentation](#service-api-documentation)
+      - [Domain documentation](#domain-documentation)
+      - [Code API documentation](#code-api-documentation)
+      - [README](#readme)
+    - [How to get consul configs](#how-to-get-consul-configs)
+    - [How to do inter-service calls](#how-to-do-inter-service-calls)
+      - [Calling services without user authentication](#calling-services-without-user-authentication)
+      - [Calling services with service authentication](#calling-services-with-service-authentication)
+      - [Calling services with user authentication](#calling-services-with-user-authentication)
 
 ---
 
@@ -27,7 +46,7 @@ Have fun!
 
 Clone the repository:
 
-```
+```bash
 git clone https://github.com/OpusCapita/service-template.git
 - or -
 git clone git@github.com:OpusCapita/service-template.git
@@ -36,23 +55,28 @@ git clone git@github.com:OpusCapita/service-template.git
 First rename the cloned directory **service-template** to the name of your new service and cd into it.
 Now remove the whole **.git** directory and run
 
-```
+```bash
 git init
 ```
 
 Open the **package.json** file in your editor and change the following properties to your own values:
 
 - name
-- version
 - description
 - author
 - repository
 - bugs
 - homepage
 
-Open the files **Dockerfile.base**, **Dockerfile**, **docker-compose.yml**, **circleci.yml** and **package.js** and replace all the values surrounded by double curly braces (e.g. {{maintainer}}) with your own.
+Open the following files and replace all placeholders in double curly braces (e.g. {{maintainer}}) with your values:
 
-Now open the **.env** file edit the provided values as required.
+- Dockerfile
+- docker-compose.yml
+- docker-compose.override.yml
+- docker-compose.ci.yml
+- src/server/index.js
+- local/index.js
+- .env
 
 ---
 

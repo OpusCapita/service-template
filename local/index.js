@@ -25,7 +25,7 @@ async function init()
 
     await server.init({
         server : {
-            port : process.env.port || {{you-service-port}},
+            port : process.env.port || {{your-service-port}},
             enableBouncer : true,
             enableEventClient : true,
             events : {

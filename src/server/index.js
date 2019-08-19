@@ -20,7 +20,7 @@ async function init()
     if(isDevMode)
     {
         const retry = require('bluebird-retry'); // Only for development
-        await retry(() => db.query('REPLACE INTO Permission (authorityId, resourceGroupId) VALUES("user", "blupp/*")'), { max_tries : 50 }); // Add generic wildcard permissions for the service
+        await retry(() => db.query('REPLACE INTO Permission (authorityId, resourceGroupId) VALUES("user", "{{your-service-name}}/*")'), { max_tries : 50 }); // Add generic wildcard permissions for the service
     }
     
     await server.init({
