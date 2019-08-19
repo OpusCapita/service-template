@@ -13,16 +13,15 @@ Have fun!
     - [Start scripts](#start-scripts)
     - [Docker](#docker)
     - [Adding to GitHub](#adding-to-github)
-    - [BNP architecture](#bnp-architecture)
     - [Build server (CircleCI)](#build-server-circleci)
-      - [Configure project to be included in andariel build process updates](#configure-project-to-be-included-in-andariel-build-process-updates)
-        - [Docker Hub](#docker-hub)
         - [GitHub](#github)
         - [NPM](#npm)
+    - [Andariel architecture](#andariel-architecture)
     - [Introduction to code](#introduction-to-code)
         - [Consul server](#consul-server)
     - [Service structure](#service-structure)
         - [config directory](#config-directory)
+        - [local directory](#local-directory)
         - [src directory](#src-directory)
         - [test directory](#test-directory)
     - [How to create migrations](#how-to-create-migrations)
@@ -49,7 +48,7 @@ Have fun!
 
 Clone the repository:
 
-```bash
+```
 git clone https://github.com/OpusCapita/service-template.git
 - or -
 git clone git@github.com:OpusCapita/service-template.git
@@ -58,7 +57,7 @@ git clone git@github.com:OpusCapita/service-template.git
 First rename the cloned directory **service-template** to the name of your new service and cd into it.
 Now remove the whole **.git** directory and run
 
-```bash
+```
 git init
 ```
 
@@ -108,23 +107,23 @@ There are several different start scripts ready to be used to run your service. 
 
 ### Docker
 
-You can now buil your service image the first time. You can either build it through a **docker build** command or through a **docker-compose build** command from within the service's directory:
+You can now build your service image the first time. You can either build it through a **docker build** command or through a **docker-compose build** command from within the service's directory:
 
-```bash
+```
 docker build -t opuscapita/{{your-service-name}}:dev -f Dockerfile .
 ```
 
-```bash
+```
 docker-compose build
 ```
 
-If everything worked to your satisfaction, execute the following command to run your new service.
+If everything worked to your satisfaction, execute the following command to run your new service. Please have a look at the [Start scripts](#start-scripts) section to find a script that suits you best.
 
-```bash
+```
 docker-compose run --service-ports main npm run local
 ```
 or
-```bash
+```
 docker-compose up
 ```
 
@@ -146,52 +145,26 @@ If all the above test commands succeeded, go to [GitHub](https://github.com) and
 git add .
 git commit -m "Initial commit."
 git remote add origin https://github.com/OpusCapita/{{your-service-name}}
-git push -u origin master
+git push -u origin develop
 ```
 
-After that, you can configure the build server for automated building and testing.
-
----
-
-### BNP architecture
-
-The technical foundation of the Business Network Portal is the [Andariel](https://github.com/OpusCapita/andariel) platform. For further information, please visit the following links:
-
-* [Architecture](https://github.com/OpusCapita/bnp/wiki/Architecture)
-* [Authentication Flow](https://github.com/OpusCapita/bnp/wiki/Authentication-Flow)
-* [Build Process](https://github.com/OpusCapita/bnp/wiki/Build-Process)
-* [Service port list](https://github.com/OpusCapita/bnp/wiki/portList)
+After that, you can configure the build server for automated building and testing. To do so please visit [CircleCi](https://circleci.com/add-projects/gh/OpusCapita), find your service there and hit the "Set Up Project" button.
 
 ---
 
 ### Build server (CircleCI)
+
+The Andariel build process called Duriel requires some basic variable setup inside the build server. These variables shoud be copied from existing repositories in order to keep a uniform environment.
+
+> Please contact the Andariel team to get the environment variables and SSH keys copied to your setup.
 
 To configure a project to be built automatically on [CircleCI](https://circleci.com) after pushing it to GitHub, please follow these steps:
 
 - Login to CircleCI using your web browser.
 - Go to https://circleci.com/add-projects/gh/OpusCapita.
 - Find your repository.
-- Click "Setup project" on the right
-- Configure Environment variables and SSH keys on circle, see https://github.com/OpusCapita/andariel-knowledgebase/wiki/Configuring-projects-on-circleci
-
-#### Configure project to be included in andariel build process updates
-
-Configure topics "microservice" and "andariel" in the github repo.
-This ensures rollout is including this service.
-See https://github.com/OpusCapita/andariel-knowledgebase/wiki/Update-andariel-build-process
-
-##### Docker Hub
-
-Your **circleci.yml** uses environment variables to automatically deploy modules and docker images. In order to use this feature, you have to set these variables up by editing the settings of your newly created build project. By default, this template requires the following variables to be defined in the "Environment Variables" section of CircleCI:
-
-- GIT_TOKEN (This is a personal access token created in GitHub https://github.com/settings/developers with repo permission)
-- GIT_USER
-- GIT_EMAIL
-- DOCKER_USER (User on Docker Hub)
-- DOCKER_PASS
-- DOCKER_EMAIL
-
-This settings are used to build docker images from your repository and push them to Docker Hub. A nightly-build config creates daily builds of your base image.
+- Click "Set Up Project" on the right
+- Configure Environment variables and SSH keys. Please reach out to the Andariel team to get the right values copied there.
 
 Now your service gets built automatically every time you push your repository to GitHub.
 
@@ -215,9 +188,23 @@ If your project consists of a module which should be published to NPM, go to you
 - NPM_PASS
 - NPM_EMAIL
 
+> Please contact the Andariel team to get these variables copied to you setup if you do not publish modules under your own name.
+
+---
+
+### Andariel architecture
+
+The technical foundation of the Business Network Portal is the [Andariel](https://github.com/OpusCapita/andariel) platform. For further information, please visit the following links:
+
+* [Architecture](https://github.com/OpusCapita/bnp/wiki/Architecture)
+* [Authentication Flow](https://github.com/OpusCapita/bnp/wiki/Authentication-Flow)
+* [Build Process](https://github.com/OpusCapita/bnp/wiki/Build-Process)
+* [Service port list](https://github.com/OpusCapita/bnp/wiki/portList)
+
 ---
 
 ### Introduction to code
+
 This service template provides general structures and modules that should be used as provided to maintain a system environment, where all services follow the same conventions. Shard modules like [config](https://github.com/OpusCapita/config), [web-init](https://github.com/OpusCapita/web-init) and [db-init](https://github.com/OpusCapita/db-init) are meant to setup and maintain all services in a much easier way.
 
 The web server module will allow you to easily publish a service API in a RESTful manner.
@@ -242,10 +229,12 @@ The endpoint **mysql** will be automatically available due to the composition of
 The most important structural file system elements are:
 
 - [config](#config-directory)
+- [local](#local-directory)
 - [rest-doc](#service-api-documentation)
 - [src](#src-directory)
     - [client](#src-directory)
     - [server](#src-directory)
+        - [api](#api-directory)
         - [db](#src-directory)
             - [migrations](#src-directory)
             - [models](#src-directory)
@@ -259,10 +248,15 @@ There are additional files for docker, npm and node to quickly get a runnable se
 ##### config directory
 All required configuration data should go here. At this time, there is no further structure inside that directory. It is up to the developer do decide, where and how to put server, client and/or service configuration data there.
 
+##### local directory
+The local directory contains a setup to launch a local development UI that provides all components of a full single-page application (SPA). As the Andariel system requires a basic, contectual environment, running Andariel based UI components need such a setup even for testing. The local directory is only used if the service was started using `npm run local`.
+
 ##### src directory
 The src directory will contain all the source code required to run the service. It contains two subdirectories for **client** code and for **server** code. The inner structure of the **client** directory is currently not specified.
 
 The **server** directory contains two subfolders for database related code (**db**) and REST **routes** related code. For further information see [How to create routes](#how-to-create-migrations).
+
+The **api** directory is meant to be a proposal. In most cases it can be benificial to create a separate API or business layer between the actual REST interface and the backend system e.g. a database. Those business or management layer files should go here.
 
 The **db** directory contains two subfolders for data migration (**migrations**) and database **models**. The contents of this subdirectories has to follow different rules which will be explained later in this document. See [How to create migrations](#how-to-create-migrations) and [How to create models](#how-to-create-models) for further information.
 

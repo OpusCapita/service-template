@@ -1,3 +1,5 @@
+const MyApi = require('../api/MyApi');
+
 /**
  * Initializes all routes for RESTful access.
  *
@@ -9,8 +11,10 @@
  */
 module.exports.init = async function(app, db, config)
 {
+    const api = new MyApi();
+
     // Register routes here.
     // Use the passed db parameter in order to use Epilogue auto-routes.
     // Use require in order to separate routes into multiple js files.
-    app.get('/', (req, res) => res.send('Hello world!'));
+    app.get('/', (req, res) => res.send(api.sayHello()));
 }
