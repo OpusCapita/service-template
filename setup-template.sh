@@ -2,11 +2,11 @@ proceed='n'
 
 function doReplace
 {
-    sed -e "s/{{your-service-name}}/$name/g
-            s/{{your-port}}/$port/g
-            s/{{service-description}}/$description/g
-            s/{{your-name}}/$author/g
-            s/{{maintainer}}/$maintainer/g" $1 > $1
+    sed -i -e "s/{{your-service-name}}/$name/g
+          s/{{your-port}}/$port/g
+          s/{{service-description}}/$description/g
+          s/{{your-name}}/$author/g
+          s/{{maintainer}}/$maintainer/g" $1
 }
 
 while [ $proceed != "y" ]; do
@@ -36,6 +36,7 @@ while [ $proceed != "y" ]; do
     read proceed
 done
 
+doReplace 'package.json'
 doReplace 'Dockerfile'
 doReplace 'docker-compose.yml'
 doReplace 'docker-compose.override.yml'
