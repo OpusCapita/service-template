@@ -8,6 +8,8 @@ Have fun!
 - [opuscapita-service-template](#opuscapita-service-template)
       - [Index](#index)
     - [Get it!](#get-it)
+      - [Replace placeholders](#replace-placeholders)
+      - [Manual replacement](#manual-replacement)
     - [Docker](#docker)
     - [Adding to GitHub](#adding-to-github)
     - [BNP architecture](#bnp-architecture)
@@ -58,6 +60,12 @@ Now remove the whole **.git** directory and run
 ```bash
 git init
 ```
+
+#### Replace placeholders
+
+Now you can either run the **setup-template.sh** bash script which will replace all placeholders with the values you are asked for by the script or you can edit all files manually.
+
+#### Manual replacement
 
 Open the **package.json** file in your editor and change the following properties to your own values:
 
