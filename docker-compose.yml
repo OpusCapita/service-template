@@ -24,10 +24,10 @@ services:
       RABBITMQ_USER: ${RABBITMQ_USER}
       RABBITMQ_PASS: ${RABBITMQ_PASS}
       REDIS_AUTH: ${REDIS_AUTH}
-      SERVICE_{{PORT}}_NAME: {{your-service-name}}
-      SERVICE_{{PORT}}_CHECK_HTTP: /api/health/check
-      SERVICE_{{PORT}}_CHECK_INTERVAL: 15s
-      SERVICE_{{PORT}}_CHECK_TIMEOUT: 3s
+      SERVICE_{{your-port}}_NAME: {{your-service-name}}
+      SERVICE_{{your-port}}_CHECK_HTTP: /api/health/check
+      SERVICE_{{your-port}}_CHECK_INTERVAL: 15s
+      SERVICE_{{your-port}}_CHECK_TIMEOUT: 3s
     ports:
       - '${PORT}:${PORT}'
 
