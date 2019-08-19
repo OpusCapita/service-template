@@ -234,7 +234,7 @@ The most important structural file system elements are:
 - [src](#src-directory)
     - [client](#src-directory)
     - [server](#src-directory)
-        - [api](#api-directory)
+        - [api](#src-directory)
         - [db](#src-directory)
             - [migrations](#src-directory)
             - [models](#src-directory)
