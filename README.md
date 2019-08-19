@@ -10,6 +10,7 @@ Have fun!
     - [Get it!](#get-it)
       - [Replace placeholders](#replace-placeholders)
       - [Manual replacement](#manual-replacement)
+    - [Start scripts](#start-scripts)
     - [Docker](#docker)
     - [Adding to GitHub](#adding-to-github)
     - [BNP architecture](#bnp-architecture)
@@ -88,40 +89,50 @@ Open the following files and replace all placeholders in double curly braces (e.
 
 ---
 
+### Start scripts
+
+There are several different start scripts ready to be used to run your service. The following are the most important/exceptional:
+
+- npm run **dev**
+  > Starts the service using nodemon watching src/server for changes.
+- npm run **dev:production**
+  > Starts the service with all required dev configs but with less overhead.
+- npm run **local**
+  > Starts the service with a local React development UI using nodemon watching src/server for changes.
+- npm run **perf**
+  > Starts the service with code performance recording.
+- npm run **test-raw**
+  > Runs tests exactly like npm run test but outputs directly to the console not to a file.
+
 ### Docker
 
-This template uses two docker files that will both build images for you. The **Dockerfile.base** creates a base image with all the basic node modules installed. This helps building the default image much faster as it will happen every time you'll push the repository to GitHub. The base image will be configured to be built every night automatically on [CircleCI](https://circleci.com) and pushed to Docker Hub.
+You can now buil your service image the first time. You can either build it through a **docker build** command or through a **docker-compose build** command from within the service's directory:
 
-As you need the base image before building the default image for your service, you may have to create your base image manually. Just run:
-
-```
-docker build -t opuscapita/{{your-service-name}}:base -f Dockerfile.base .
+```bash
+docker build -t opuscapita/{{your-service-name}}:dev -f Dockerfile .
 ```
 
-If desired, you might want to publish your new base image to Docker Hub. To do so, follow these steps:
-
-```
-docker login
-docker push opuscapita/{{your-service-name}}
+```bash
+docker-compose build
 ```
 
 If everything worked to your satisfaction, execute the following command to run your new service.
 
-```
-docker-compose run --service-ports main npm run dev
+```bash
+docker-compose run --service-ports main npm run local
 ```
 or
-```
+```bash
 docker-compose up
 ```
 
-> Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time. If your service did not start press Ctrl+C and run the **docker-compose up** command again.
+> Sometimes the initial start of the service does not succeed because of timeouts happening when creating and starting containers at the same time on slow machines. If your service did not start press Ctrl+C and run the docker command again.
 
- > In order to pass additional environment variables (e.g. secrets that must not be saved in the code) change your docker-compose.yml to pass these variables to docker and run your *docker-compose up* commpand by prepending the variables like **MY_VAR=myValue docker-compose up**. You can pass multiple environment variables.
+ > In order to pass additional environment variables (e.g. secrets that must not be saved in the code) change your docker-compose.yml to pass these variables to docker and run your docker commpand by adding them to the **.env file** or by prepending the variables to you command like **MY_VAR=myValue docker-compose up**. You can pass multiple environment variables.
 
 > For a list of all used ports, please have a look the [service port list](https://github.com/OpusCapita/bnp/wiki/portList).
 
-Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show you a "Hello world!".
+Now remember the port you put into the .env file, go to your web browser an open "http://localhost:{{port}}/". If everything worked, the browser should show either a plain text "Hello world!" or a user interface.
 
 ---
 
