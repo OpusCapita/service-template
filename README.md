@@ -18,7 +18,8 @@ Have fun!
         - [NPM](#npm)
     - [Andariel architecture](#andariel-architecture)
     - [Introduction to code](#introduction-to-code)
-        - [Consul server](#consul-server)
+      - [Andariel libraries](#andariel-libraries)
+      - [Consul server](#consul-server)
     - [Service structure](#service-structure)
         - [config directory](#config-directory)
         - [local directory](#local-directory)
@@ -213,7 +214,21 @@ The database module allows abstracted access to an underlying database. Addition
 
 In addition, this template module is already prepared for documenting the JavaScript API of a service. The documentation process is tailored to fit into the GitHub wiki of a service's repository. For more information take a look at [How to create documentation](#how-to-create-documentation).
 
-##### Consul server
+#### Andariel libraries
+
+There are several libraries that are made to be more or less exclusively used for Andariel projects.
+
+- [db-init](https://github.com/OpusCapita/db-init) - Database initialization, connection and migration
+- [web-init](https://github.com/OpusCapita/web-init) - Web server and request environment augmenter
+- [config](https://github.com/OpusCapita/config) - Service registry and configuration value accessor
+- [cache](https://github.com/OpusCapita/cache) - Plug-in based caching interface
+- [kafka-client](https://github.com/OpusCapita/kafka-client) - Kafka message client
+- [event-client](https://github.com/OpusCapita/event-client) - RabbitMQ message client
+- [redis-client](https://github.com/OpusCapita/redis-client) - Redis storage and pub/sub access
+- [bouncer](https://github.com/OpusCapita/bouncer) - Security library also coming with web-init
+- [useridentity-middleware](https://github.com/OpusCapita/useridentity-middleware) - Session decryption middleware coming with web-init
+
+#### Consul server
 This service template will set up the following consul keys for you using an NPM script.
 
 * **{{your-service-name}}/db-init/database**
