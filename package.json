@@ -21,7 +21,7 @@
     "@opuscapita/config": "^3.0.16",
     "@opuscapita/db-init": "^2.0.24",
     "@opuscapita/web-init": "^3.0.87",
-    "ocbesbn-logger": "^1.0.11",
+    "@opuscapita/logger": "^1.0.11",
   },
   "devDependencies": {
     "@opuscapita/service-base-ui": "^2.0.0",

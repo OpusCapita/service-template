@@ -348,7 +348,7 @@ For more details take a look at the example file inside the **./src/server/route
 Logging in services should be done using the [logger](https://github.com/OpusCapita/logger) module. It provides context extended logging in a common way which is flexible and consistent at the same time. For further information about the API of this module visit it's [wiki](https://github.com/OpusCapita/logger).
 
 ```JS
-const Logger = require('ocbesbn-logger');
+const Logger = require('@opuscapita/logger');
 
 var logger = new Logger({});
 logger.info('Hello, %s', 'world!');
@@ -463,7 +463,7 @@ Calls to another service using ServiceClient can be done either **without authen
 #### Calling services without user authentication
 
 ```JS
-const ServiceClient = require('ocbesbn-service-client');
+const ServiceClient = require('@opuscapita/service-client');
 
 var client = new ServiceClient();
 
@@ -476,7 +476,7 @@ client.get('main', '/').spread(console.log);
 Calling a service can also be done using pre-configured service credentials stored in consul. The service name gets determined automatically. For more information please have a look at the [ServiceClient](https://github.com/OpusCapita/service-client#origin-service-based-authentication) documentation.
 
 ```JS
-const ServiceClient = require('ocbesbn-service-client');
+const ServiceClient = require('@opuscapita/service-client');
 
 var client = new ServiceClient();
 
