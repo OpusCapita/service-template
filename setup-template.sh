@@ -2,8 +2,9 @@ proceed='n'
 
 function doReplace
 {
-    sed -i -e "s/{{your-service-name}}/$name/g
+    sed -i .bak -e "s/{{your-service-name}}/$name/g
           s/{{your-port}}/$port/g
+          s/{{your-service-port}}/$port/g
           s/{{service-description}}/$description/g
           s/{{your-name}}/$author/g
           s/{{maintainer}}/$maintainer/g" $1
@@ -43,4 +44,7 @@ doReplace 'docker-compose.override.yml'
 doReplace 'docker-compose.ci.yml'
 doReplace 'src/server/index.js'
 doReplace 'local/index.js'
+doReplace 'local/index.html'
+doReplace 'setup-consul.sh'
+doReplace 'task_template.json'
 doReplace '.env'
