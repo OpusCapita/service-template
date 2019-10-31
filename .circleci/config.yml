@@ -4,22 +4,30 @@ jobs:
     docker:
       - image: circleci/node:8
     working_directory: ~/build
-
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Deployment script
+          name: "prepare buildprocess scripts"
           command: |
-            export andariel_branch=develop
-            if [[ "$CIRCLE_BRANCH" == "master" ]]; then export andariel_branch=master; fi
-
-            curl -f --header "Authorization: token $GIT_TOKEN" https://raw.githubusercontent.com/OpusCapita/andariel/$andariel_branch/buildscript.sh > buildscript.sh
-            chmod +x buildscript.sh
-            ./buildscript.sh opuscapita/$CIRCLE_PROJECT_REPONAME
-
-
+              git clone https://github.com/OpusCapita/duriel.git -b master ../buildprocess
+              cd ../buildprocess
+              npm install
+              npm test
+              mv junit ~/build/junit
+              cd ~/build
+      - run:
+          name: "building and testing locally"
+          command: "node ../buildprocess/bp_localbuild.js opuscapita/$CIRCLE_PROJECT_REPONAME"
+      - store_test_results:
+          path: "junit"
+      - run:
+          name: "Deployment"
+          command: "node ../buildprocess/bp_deploy.js"
+      - run:
+          name: "After Deployment"
+          command: "node ../buildprocess/bp_after_deployment.js"
   copy_to_env:
     docker:
       - image: circleci/node:8
@@ -35,39 +43,8 @@ jobs:
             curl -f --header "Authorization: token $GIT_TOKEN" https://raw.githubusercontent.com/OpusCapita/andariel/$andariel_branch/mirrorscript.sh > mirrorscript.sh
             chmod +x mirrorscript.sh
             ./mirrorscript.sh opuscapita/$CIRCLE_PROJECT_REPONAME $FROM_ENV $TO_ENV $GIT_TOKEN
-
-  build_base:
-    docker:
-      - image: circleci/node:8
-    working_directory: ~/build
-
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - deploy:
-          name: Build and push Docker base image
-          command: |
-            if [ -f "Dockerfile.base" ] ; then 
-            docker build -t opuscapita/$CIRCLE_PROJECT_REPONAME:base -f Dockerfile.base .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push opuscapita/$CIRCLE_PROJECT_REPONAME:base
-            else
-            echo "no Dockerfile.base found, skipping base img build"
-            fi
-
 workflows:
   version: 2
   commit:
     jobs:
       - build
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - develop
-    jobs:
-      - build_base
