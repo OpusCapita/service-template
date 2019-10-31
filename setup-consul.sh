@@ -9,7 +9,7 @@ function putConsulData
     curl -X PUT -d ${RABBITMQ_PASS} http://consul:8500/v1/kv/{{your-service-name}}/mq/password
 }
 
-putConsulData()
+putConsulData
 
 while [ $? -ne 0 ]; do
     sleep 1
