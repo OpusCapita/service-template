@@ -357,6 +357,8 @@ logger.info('Hello, %s', 'world!');
 ---
 
 ### How to write tests
+
+#### Integration tests
 Tests are actually executed using nyc and mocha so files inside the **test** directory have to follow the rules of mocha testing. All files have to be suffixed with **.spec.js** in order to get executed.
 
 Just run
@@ -364,6 +366,10 @@ Just run
 docker-compose run main npm run test
 ```
 to execute all tests inside the **client** and **server** subdirectories. Take a look at the **scripts** section inside the main **package.json** to see how the testing is configured.
+
+#### Unit tests
+There was no concept of unit tests originally as there was no distinction between different types of tests.
+This concept is to be introduced
 
 ---
 
